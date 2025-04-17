@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/edit_recipe.css' %}">{% endblock %}
+{% block content %}
+<div class="container my-edit-form">
+    <h2 class="mt-4" id="tag">Edit Recipe</h2>
+    <form method="POST" id="form">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Title:</label>
+            <input type="text" class="form-control" name="title" value="{{ recipe.title }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ingredients:</label>
+            <textarea class="form-control" name="ingredients" required>{{ recipe.ingredients }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Instructions:</label>
+            <textarea class="form-control" name="instructions" required>{{ recipe.instructions }}</textarea>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" id="btn">Update Recipe</button>
+    </form>
+</div>
+{% endblock %}

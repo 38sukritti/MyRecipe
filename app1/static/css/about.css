@@ -1,0 +1,103 @@
+body{
+    padding: 0;
+    margin: 0;
+    
+}
+h2{
+    text-align: center;
+}
+
+p{
+    text-align: center;
+    margin: 10px;
+}
+
+#box1>img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin-left: 48px;
+}
+#box2>img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin-left: 48px;
+}
+#box3>img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin-left: 48px;
+}
+#box4>img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin-left: 48px;
+}
+.box>h4{
+    font-weight: bold;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.box>p{
+    
+    text-align: center;
+}
+.box{
+    
+    height: 400px;
+    width: 300px;
+
+}
+.box{
+    margin-right:10px;
+    background-color: aliceblue;
+    text-decoration: none;
+    padding: 20px;
+    margin: 45px;
+    border-radius: 20px;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
+    
+}
+.box:hover{
+    
+    cursor: pointer;
+    scale:1.1;
+}
+
+
+
+#container{
+    display: flex;
+    background-color: #b49c8b;
+   /* background-color: #F4E3CD; */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animation to the boxes */
+.box {
+    animation: fadeIn 1s ease-in-out;
+    opacity: 0;  /* Initially hidden */
+    animation-fill-mode: forwards;
+}
+
+/* Hover effect */
+.box:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+

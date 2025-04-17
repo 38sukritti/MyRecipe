@@ -1,0 +1,107 @@
+{%extends 'base3.html'%}
+{%block content%}
+<section class="container mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="section-title" data-translate="popular-recipes">Popular Recipes</h2>
+        <a href="#" class="btn btn-outline-custom" data-translate="view-all">View All</a>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card recipe-card" data-category="vegetarian" data-time="20" data-difficulty="easy"
+                data-tags="vegetarian,healthy">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                    class="card-img-top recipe-img" alt="Healthy Salad">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge badge-custom bg-success"
+                            data-translate="recipe-vegetarian">Vegetarian</span>
+                        <small class="text-muted"><i class="fas fa-clock"></i> <span data-translate="recipe-time">20
+                                mins</span></small>
+                    </div>
+                    <h5 class="card-title" data-translate="recipe1-title">Mediterranean Salad</h5>
+                    <p class="card-text" data-translate="recipe1-desc">Fresh and healthy salad with feta cheese and
+                        olives.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star-half-alt text-warning"></i>
+                            <span class="ms-1">(124)</span>
+                        </div>
+                        <div class="save-recipe" onclick="this.classList.toggle('saved')">
+                            <i class="far fa-heart"></i>
+                        </div>
+                        <a href="#" class="btn btn-sm btn-custom" data-translate="view-recipe">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card recipe-card" data-category="italian" data-time="35" data-difficulty="medium"
+                data-tags="pasta">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                    class="card-img-top recipe-img" alt="Pasta Dish">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge badge-custom bg-primary" data-translate="recipe-italian">Italian</span>
+                        <small class="text-muted"><i class="fas fa-clock"></i> <span data-translate="recipe-time">35
+                                mins</span></small>
+                    </div>
+                    <h5 class="card-title" data-translate="recipe2-title">Creamy Garlic Pasta</h5>
+                    <p class="card-text" data-translate="recipe2-desc">Rich and creamy pasta with garlic and
+                        parmesan.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="far fa-star text-warning"></i>
+                            <span class="ms-1">(98)</span>
+                        </div>
+                        <div class="save-recipe" onclick="this.classList.toggle('saved')">
+                            <i class="far fa-heart"></i>
+                        </div>
+                        <a href="#" class="btn btn-sm btn-custom" data-translate="view-recipe">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card recipe-card" data-category="breakfast" data-time="25" data-difficulty="easy"
+                data-tags="vegetarian">
+                <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                    class="card-img-top recipe-img" alt="Pancakes">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge badge-custom bg-warning text-dark"
+                            data-translate="recipe-breakfast">Breakfast</span>
+                        <small class="text-muted"><i class="fas fa-clock"></i> <span data-translate="recipe-time">25
+                                mins</span></small>
+                    </div>
+                    <h5 class="card-title" data-translate="recipe3-title">Fluffy Blueberry Pancakes</h5>
+                    <p class="card-text" data-translate="recipe3-desc">Light and fluffy pancakes bursting with
+                        blueberries.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <span class="ms-1">(156)</span>
+                        </div>
+                        <div class="save-recipe" onclick="this.classList.toggle('saved')">
+                            <i class="far fa-heart"></i>
+                        </div>
+                        <a href="#" class="btn btn-sm btn-custom" data-translate="view-recipe">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{%endblock%}

@@ -1,0 +1,545 @@
+:root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #ffa502;
+    --dark-color: #2f3542;
+    --light-color: #f1f2f6;
+    --success-color: #2ed573;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: var(--dark-color);
+}
+
+.navbar-brand {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--primary-color) !important;
+    font-weight: 700;
+}
+
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 120px 0;
+    margin-bottom: 50px;
+    border-radius: 0 0 20px 20px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-family: 'Dancing Script', cursive;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.search-bar {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-input {
+    border-radius: 50px 0 0 50px !important;
+    border: none;
+    padding: 15px 20px;
+}
+
+.search-btn {
+    border-radius: 0 50px 50px 0 !important;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0 25px;
+}
+
+.feature-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    border: none;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 50px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    bottom: -10px;
+    left: 0;
+    border-radius: 2px;
+}
+
+.recipe-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, opacity 0.3s, height 0.3s;
+    margin-bottom: 25px;
+}
+
+.recipe-card:hover {
+    transform: translateY(-10px);
+}
+
+.recipe-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.badge-custom {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-custom {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #ff5252;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.btn-outline-custom {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    background: transparent;
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+.btn-outline-custom:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Add these to your existing CSS */
+.tip-card {
+transition: all 0.3s;
+height: 100%;
+}
+
+.tip-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.blog-card {
+transition: all 0.3s;
+border-radius: 15px;
+overflow: hidden;
+}
+
+.blog-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.featured-recipe {
+transition: all 0.3s;
+}
+
+.featured-recipe:hover {
+transform: translateY(-5px);
+box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.category-card {
+transition: all 0.3s;
+}
+
+.category-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.user-card {
+transition: all 0.3s;
+}
+
+.user-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Add these styles to your CSS file */
+.testimonial-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rating {
+    margin: 15px 0;
+    font-size: 18px;
+}
+
+.rating-input {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.rating-input .rating-star {
+    margin: 0 2px;
+}
+.rating-star {
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-right: 0.2rem;
+}
+.rating-star:hover {
+    color: #ffc107 !important;
+}
+
+.testimonial-actions {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-actions {
+    opacity: 1;
+}
+
+.newsletter-section {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+}
+
+.newsletter-input {
+    height: 50px;
+    border-radius: 25px 0 0 25px !important;
+}
+
+.newsletter-btn {
+    height: 50px;
+    border-radius: 0 25px 25px 0 !important;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 0 25px;
+}
+
+/* 
+.newsletter-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 80px 0;
+    border-radius: 20px;
+    margin: 80px 0;
+}
+
+.newsletter-input {
+    border-radius: 50px 0 0 50px !important;
+    border: none;
+    padding: 15px 20px;
+}
+
+.newsletter-btn {
+    border-radius: 0 50px 50px 0 !important;
+    background-color: var(--dark-color);
+    color: white;
+    border: none;
+    padding: 0 25px;
+} */
+
+
+.recipe-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.save-recipe {
+    position: absolute;
+    top: 15px;
+    right: -40px;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.recipe-card:hover .save-recipe {
+    right: 15px;
+}
+
+.save-recipe:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.save-recipe.saved {
+    background-color: var(--primary-color);
+    color: white;
+    right: 15px;
+}
+
+.floating-btn:hover {
+    transform: scale(1.1);
+    color: white;
+}
+
+.hindi-font {
+    font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+}
+
+.language-flag {
+    width: 20px;
+    margin-right: 8px;
+}
+
+.recipe-card.filtered-out {
+    transform: scale(0.95);
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Container for chatbox */
+.ai-chatbox {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    width: 320px;
+    max-height: 500px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    z-index: 999;
+  }
+  
+  /* Chat Header */
+  .chat-header {
+    background-color: #ff6f61;
+    color: white;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chat-header h5 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .close-chat {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Messages area */
+  .chat-messages {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    background-color: #fdfdfd;
+  }
+  
+  /* Chat input area */
+  .chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #eee;
+    background-color: #fff;
+  }
+  
+  .chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .chat-input button {
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 50%;
+    margin-left: 8px;
+    cursor: pointer;
+  }
+  
+  /* Floating Chat Button */
+  .floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+  }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #fffdf9;
+    margin: 0;
+    padding: 2rem;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.mode-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.mode-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    background-color: #eee;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.mode-btn.active {
+    background-color: #ff6f61;
+    color: white;
+}
+
+.mode-content {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.mode-content.active {
+    display: block;
+}
+
+.mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    padding: 0 2rem;
+}
+
+.mode-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.mode-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.mode-card i {
+    font-size: 2.5rem;
+    color: #ff6f61;
+    margin-bottom: 1rem;
+}
+
+.mode-card h3 {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+  
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}{%endblock%}</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <!-- Bootstrap CSS -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    /* Example Dark Mode Styles */
+
+
+    body.dark-mode {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+body.dark-mode .navbar {
+    background-color: #1e1e1e !important;
+    color: white;
+}
+
+body.dark-mode .card {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+body.dark-mode a {
+    color: #90caf9;
+}
+
+        /* Footer Enhancements */
+        .footer-brand h5 {
+            font-family: 'Playfair Display', serif;
+            text-transform: uppercase;
+        }
+        
+        .footer-links a {
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .hover-white:hover {
+            color: white !important;
+            transform: translateX(5px);
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+        }
+        
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        
+        .input-group .btn-outline-light:hover {
+            background-color: white;
+            color: black;
+        }
+        
+        .form-control:focus {
+            background-color: #333;
+            border-color: #555;
+            color: white;
+            box-shadow: none;
+        }
+
+
+</style>
+
+    {%block extra_css%}{%endblock%}
+    {%block extra_js%}{%endblock%}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">ZaykaBook</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-translate="nav-home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{%url 'app2:recipes'%}" data-translate="nav-recipes">Recipes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{%url 'app2:category'%}" data-translate="nav-categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{%url 'app2:about'%}" data-translate="nav-about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{%url 'app2:contact'%}" data-translate="nav-contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="ms-3 d-flex align-items-center">
+                    <div class="dark-mode-toggle me-3" id="darkModeToggle" role="button" tabindex="0" style="cursor: pointer;">
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                    
+                    <div class="dropdown ms-3" id="languageDropdownContainer">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                            id="languageDropdown" data-bs-toggle="dropdown">
+                            <i class="fas fa-language me-1"></i> English
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item language-option" href="#" data-lang="en">English</a></li>
+                            <li><a class="dropdown-item language-option" href="#" data-lang="hi">हिंदी (Hindi)</a></li>
+                        </ul>
+                    </div>
+
+                    {% if user.is_authenticated %}
+                    <span style="margin-left: 20px;">Welcome, {{ user.username }}!</span>
+                    <a class="nav-link" href="{% url 'app1:logout' %}" style="margin:15px">Logout</a>
+                    {% else %}
+                 
+                    <a class="nav-link" href="{% url 'app1:login' %}" style="margin:15px">Login</a>
+                    <a class="nav-link" href="{% url 'app1:signup' %}" style="margin: 10px;">Signup</a>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                    
+                        <a class="nav-link" href="{% url 'app2:manage_users' %}">Manage Users</a>
+                
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    {%block content%}{%endblock%}
+    <footer class="bg-black text-white pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Brand Column -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-brand">
+                        <h5 class="mb-4 text-white fw-bold fs-4" style="letter-spacing: 1px;">ZAYKABOOK</h5>
+                        <p class="text-white-50 mb-4" style="line-height: 1.8;" data-translate="footer-description">
+                            Connecting food lovers around the world through the joy of cooking and sharing recipes.
+                        </p>
+                        <div class="social-icons mt-4">
+                            <a href="#" class="social-icon text-white me-3 transition-all">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-icon text-white me-3 transition-all">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-icon text-white me-3 transition-all">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-icon text-white transition-all">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Quick Links Column -->
+                <div class="col-lg-2 col-md-6 col-6 mb-4">
+                    <h5 class="mb-4 text-white fw-bold position-relative pb-2" 
+                        style="width: fit-content;" data-translate="footer-quick-links">
+                        Quick Links
+                        <span class="position-absolute bottom-0 start-0 bg-white" style="height: 2px; width: 40px;"></span>
+                    </h5>
+                    <div class="footer-links">
+                        <a href="#" class="d-block text-white-50 mb-2 transition-all hover-white" data-translate="nav-home">
+                            <i class="fas fa-chevron-right me-2 text-white" style="font-size: 0.7rem;"></i> Home
+                        </a>
+                        <a href="#" class="d-block text-white-50 mb-2 transition-all hover-white" data-translate="nav-recipes">
+                            <i class="fas fa-chevron-right me-2 text-white" style="font-size: 0.7rem;"></i> Recipes
+                        </a>
+                        <a href="#" class="d-block text-white-50 mb-2 transition-all hover-white" data-translate="nav-categories">
+                            <i class="fas fa-chevron-right me-2 text-white" style="font-size: 0.7rem;"></i> Categories
+                        </a>
+                        <a href="#" class="d-block text-white-50 mb-2 transition-all hover-white" data-translate="nav-about">
+                            <i class="fas fa-chevron-right me-2 text-white" style="font-size: 0.7rem;"></i> About Us
+                        </a>
+                        <a href="#" class="d-block text-white-50 transition-all hover-white" data-translate="nav-contact">
+                            <i class="fas fa-chevron-right me-2 text-white" style="font-size: 0.7rem;"></i> Contact
+                        </a>
+                    </div>
+                </div>
+    
+                <!-- Categories Column -->
+                <div class="col-lg-2 col-md-6 col-6 mb-4">
+                    <h5 class="mb-4 text-white fw-bold position-relative pb-2" 
+                        style="width: fit-content;" data-translate="footer-categories">
+                        Categories
+                        <span class="position-absolute bottom-0 start-0 bg-white" style="height: 2px; width: 40px;"></span>
+                    </h5>
+                    <div class="footer-links">
+                        <a href="#" class="d-block text-white-50 mb-2 transition-all hover-white" data-translate="category-breakfast">
+                            <i class="fas fa-utensils me-2 text-white" style="font-size: 0.8rem;"></i> Breakfast
+                        </a>
+                        <a href="#" class="d-block text-white-50 mb-2 transition-all hover-white" data-translate="category-lunch">
+                            <i class="fas fa-utensils me-2 text-white" style="font-size: 0.8rem;"></i> Lunch
+                        </a>
+                        <a href="#" class="d-block text-white-50 mb-2 transition-all hover-white" data-translate="category-dinner">
+                            <i class="fas fa-utensils me-2 text-white" style="font-size: 0.8rem;"></i> Dinner
+                        </a>
+                        <a href="#" class="d-block text-white-50 mb-2 transition-all hover-white" data-translate="category-desserts">
+                            <i class="fas fa-ice-cream me-2 text-white" style="font-size: 0.8rem;"></i> Desserts
+                        </a>
+                        <a href="#" class="d-block text-white-50 transition-all hover-white" data-translate="category-drinks">
+                            <i class="fas fa-glass-whiskey me-2 text-white" style="font-size: 0.8rem;"></i> Drinks
+                        </a>
+                    </div>
+                </div>
+    
+                <!-- Contact Column -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="mb-4 text-white fw-bold position-relative pb-2" 
+                        style="width: fit-content;" data-translate="footer-contact">
+                        Contact Us
+                        <span class="position-absolute bottom-0 start-0 bg-white" style="height: 2px; width: 40px;"></span>
+                    </h5>
+                    <div class="contact-info">
+                        <p class="text-white-50 mb-3 d-flex align-items-start">
+                            <i class="fas fa-map-marker-alt me-3 mt-1 text-white"></i> 
+                            <span data-translate="footer-address">123 Food Street, Culinary City</span>
+                        </p>
+                        <p class="text-white-50 mb-3 d-flex align-items-center">
+                            <i class="fas fa-phone me-3 text-white"></i> +1 (555) 123-4567
+                        </p>
+                        <p class="text-white-50 mb-4 d-flex align-items-center">
+                            <i class="fas fa-envelope me-3 text-white"></i> hello@zaykabook.com
+                        </p>
+                        <div class="newsletter">
+                            <h6 class="text-white mb-3">NEWSLETTER</h6>
+                            <div class="input-group">
+                                <input type="email" class="form-control bg-dark border-dark text-white" 
+                                       placeholder="Your email" aria-label="Your email">
+                                <button class="btn btn-outline-light" type="button">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+    
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0 text-white-50 small">
+                        © 2025 ZaykaBook. <span data-translate="footer-rights">All rights reserved.</span>
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white-50 me-3 small hover-white transition-all" data-translate="footer-privacy">Privacy Policy</a>
+                    <a href="#" class="text-white-50 small hover-white transition-all" data-translate="footer-terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+       <!-- Dark Mode Toggle Script -->
+   
+    
+
+</body>
+
+</html>

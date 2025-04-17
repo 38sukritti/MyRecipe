@@ -1,0 +1,33 @@
+body {
+    background-image: url('../images/addrecipe.jpg'); /* Make sure path is correct */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Custom class for the form container */
+.my-edit-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    margin: auto;
+    margin-top: 120px;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+#tag {
+    font-weight: bold;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#btn {
+    width: 100%;
+    background-color: brown;
+    border-color: brown;
+}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Listing - Zayka Book</title>
+    <link rel="stylesheet" href="{% static 'css/myrecipe.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- Hero Banner -->
+<div class="banner-container">
+    <img src="{% static 'images/zayka.jpg' %}" class="banner-image">
+    <div class="banner-text">
+        <h1>Welcome to <span class="highlight">Zayka Book</span></h1>
+        <p>Explore delicious recipes curated for food lovers.</p>
+        <a href="#recipes" class="btn-discover">Discover Recipes</a>
+    </div>
+</div>
+
+<!-- Recipe Section -->
+<h2 class="section-title" id="recipes" style="text-align: center; font-size: xx-large;">🍽 Explore Delicious Recipes</h2>
+
+<div class="recipes-container">
+
+    <!-- Recipe Card Template -->
+    {% for recipe in recipes %}
+    <div class="recipe-card" onclick="flipCard(this)">
+        <div class="recipe-inner">
+            <div class="recipe-front">
+                <img src="{% static recipe.image %}" class="recipe-image" alt="{{ recipe.title }}">
+                <div class="recipe-content">
+                    <h3>{{ recipe.title }}</h3>
+                    <p class="recipe-description">{{ recipe.description }}</p>
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <div class="card-actions">
+                        <button class="discover-btn">View Recipe</button>
+                        <button class="fav-btn"><i class="fas fa-heart"></i></button>
+                        <button class="save-btn"><i class="fas fa-bookmark"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="recipe-back">
+                <h3>{{ recipe.title }} Recipe</h3>
+                <h4>Ingredients:</h4>
+                <p>{{ recipe.ingredients }}</p>
+                <h4>Instructions:</h4>
+                <p>{{ recipe.instructions }}</p>
+                {% if recipe.video_url %}
+                <a href="{{ recipe.video_url }}" target="_blank">Watch Video</a>
+                {% endif %}
+                <button class="close-btn" onclick="flipBack(event, this)">Close</button>
+                <button class="save-btn"><i class="fas fa-bookmark"></i> Save</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+<script>
+    // Smooth Scroll to Recipes Section
+    document.querySelector(".btn-discover").addEventListener("click", function (event) {
+        event.preventDefault();
+        document.querySelector("#recipes").scrollIntoView({behavior: "smooth"});
+    });
+
+    // Flip Card Functionality
+    function flipCard(card) {
+        card.classList.toggle("flipped");
+    }
+
+    function flipBack(event, btn) {
+        event.stopPropagation();
+        btn.closest(".recipe-card").classList.remove("flipped");
+    }
+</script>
+
+</body>
+</html>
+{% endblock %}

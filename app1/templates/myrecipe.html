@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Recipes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/myrecipe.css' %}">
+</head>
+<body class="container">
+    
+    <h2 class="mt-4" id="tag">My Recipes</h2>
+
+    <a href="{% url 'app1:add_recipe' %}" class="btn btn-primary mb-3" id="btn">Add New Recipe</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Ingredients</th>
+                <th>Instructions</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recipes %}
+            <tr>
+                <td>{{ recipe.title }}</td>
+                <td>{{ recipe.ingredients }}</td>
+                <td>{{ recipe.instructions }}</td>
+                <td>
+                    {% if request.user.is_staff %}
+                        <a href="{% url 'app1:edit_recipe' recipe.id %}" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'app1:delete_recipe' recipe.id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No recipes found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
+{% endblock %}

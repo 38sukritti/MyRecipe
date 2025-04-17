@@ -1,0 +1,452 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Italian Culinary Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- Font Awesome CDN for Icons -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
+
+    <link rel="stylesheet" href="{%static 'css/index2.css'%}">
+    <style>
+      
+.custom-footer {
+  background-color: #1c1c1c;
+  color: #f1f1f1;
+  padding: 60px 20px 30px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.footer-col {
+  flex: 1 1 220px;
+  min-width: 200px;
+}
+
+.footer-col h4 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.footer-col p {
+  font-size: 14px;
+  color: #cccccc;
+  line-height: 1.6;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+  color: #cccccc;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.footer-col ul li a:hover {
+  color: #ffcc00;
+}
+
+.contact-info li {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.contact-info i {
+  margin-right: 8px;
+  color: #ffcc00;
+}
+
+.social-links a {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #cccccc;
+  transition: 0.3s;
+}
+
+.social-links a:hover {
+  color: #ffcc00;
+}
+
+hr {
+  border-color: rgba(255, 255, 255, 0.1);
+  margin: 30px 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 14px;
+  color: #aaaaaa;
+}
+
+.footer-bottom .legal-links a {
+  color: #aaaaaa;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.footer-bottom .legal-links a:hover {
+  color: #ffcc00;
+}
+</style>
+
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav style="background-color: #fff; padding: var(--space-md); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 100;">
+
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primary); text-decoration: none;">ZaykaBook</a>
+            <div style="display: flex; gap: var(--space-md);">
+                <a href="{%url 'app2:home'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Home</a>
+                <a href="{%url 'app2:recipes'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Recipes</a>
+                <a href="{%url 'app2:category'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Categories</a>
+                <a href="{%url 'app2:about'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">About</a>
+                <a href="{%url 'app2:contact'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Contact</a>
+                {% if user.is_authenticated %}
+                <span style="margin-top: 15px;">Welcome, {{ user.username }}!</span>
+                <a href="{%url 'app2:logout'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Logout</a>
+                {% else %}
+                <a href="{%url 'app1:signup'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Signup</a>
+                <a href="{%url 'app1:login'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Login</a>
+
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" >
+        <div class="hero-content">
+            <h1>La Cucina Italiana</h1>
+            <p>People who love to eat are always the best people.</p>
+        </div>
+    </section>
+
+    <!-- Recipe Container -->
+    <div class="recipe-container">
+        <!-- Recipe 1 -->
+        <article class="recipe-card">
+            <div class="image-strip">
+                <img src="{%static 'images/maggie.avif'%}" alt="Maggi">
+                
+            </div>
+            <div class="card-content">
+                <h3>Maggi Noodles</h3>
+                <div class="recipe-meta">
+                    <span class="meta-item"><i class="fas fa-clock"></i> 5 mins</span>
+                    <span class="meta-item"><i class="fas fa-star"></i> 4.7</span>
+                    <span class="meta-item"><i class="fas fa-pepper-hot"></i> Easy</span>
+                </div>
+                <p>Quick and delicious instant noodles that can be prepared in just 2 minutes with hot water.</p>
+                <a href="{%url 'app2:maggie'%}" class="recipe-btn">View Recipe <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </article>
+
+        <!-- Recipe 2 -->
+        <article class="recipe-card">
+            <div class="image-strip">
+                <img src="{%static 'images/chaat.webp'%}" alt="Chaat">
+                
+            </div>
+            <div class="card-content">
+                <h3>Chaat</h3>
+                <div class="recipe-meta">
+                    <span class="meta-item"><i class="fas fa-clock"></i> 15 mins</span>
+                    <span class="meta-item"><i class="fas fa-star"></i> 4.9</span>
+                    <span class="meta-item"><i class="fas fa-pepper-hot"></i> Spicy</span>
+                </div>
+                <p>A spicy and tangy Indian street food snack with crispy base and flavorful chutneys.</p>
+                <button class="recipe-btn">View Recipe <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </article>
+
+        <!-- Recipe 3 -->
+        <article class="recipe-card">
+            <div class="image-strip">
+                <img src="{%static 'images/coffee.avif'%}" alt="Coffee">
+               
+            </div>
+            <div class="card-content">
+                <h3>Cold Coffee</h3>
+                <div class="recipe-meta">
+                    <span class="meta-item"><i class="fas fa-clock"></i> 10 mins</span>
+                    <span class="meta-item"><i class="fas fa-star"></i> 4.8</span>
+                    <span class="meta-item"><i class="fas fa-coffee"></i> Sweet</span>
+                </div>
+                <p>A refreshing chilled coffee perfect for summer days with creamy texture.</p>
+                <button class="recipe-btn">View Recipe <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </article>
+
+        <!-- Recipe 4 -->
+        <article class="recipe-card">
+            <div class="image-strip">
+                <img src="{%static 'images/pizza.avif'%}" alt="Pizza">
+               
+            </div>
+            <div class="card-content">
+                <h3>Margherita Pizza</h3>
+                <div class="recipe-meta">
+                    <span class="meta-item"><i class="fas fa-clock"></i> 30 mins</span>
+                    <span class="meta-item"><i class="fas fa-star"></i> 4.9</span>
+                    <span class="meta-item"><i class="fas fa-flag"></i> Italian</span>
+                </div>
+                <p>Classic Italian pizza with tomato sauce, fresh mozzarella, and basil leaves.</p>
+                <a href="{%url 'app2:pizza'%}" class="recipe-btn">View Recipe <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </article>
+
+        <!-- Recipe 5 -->
+        <article class="recipe-card">
+            <div class="image-strip">
+                <img src="{%static 'images/burger.avif'%}" alt="Burger">
+               
+            </div>
+            <div class="card-content">
+                <h3>Cheese Burger</h3>
+                <div class="recipe-meta">
+                    <span class="meta-item"><i class="fas fa-clock"></i> 20 mins</span>
+                    <span class="meta-item"><i class="fas fa-star"></i> 4.6</span>
+                    <span class="meta-item"><i class="fas fa-hamburger"></i> American</span>
+                </div>
+                <p>Juicy beef patty with melted cheese, fresh veggies, and special sauce in a soft bun.</p>
+                <button class="recipe-btn">View Recipe <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </article>
+
+        <!-- Recipe 6 -->
+        <article class="recipe-card">
+            <div class="image-strip">
+                <img src="{%static 'images/salad.avif'%}" alt="Salad">
+               
+            </div>
+            <div class="card-content">
+                <h3>Fresh Salad</h3>
+                <div class="recipe-meta">
+                    <span class="meta-item"><i class="fas fa-clock"></i> 10 mins</span>
+                    <span class="meta-item"><i class="fas fa-star"></i> 4.5</span>
+                    <span class="meta-item"><i class="fas fa-leaf"></i> Healthy</span>
+                </div>
+                <p>Colorful mix of fresh vegetables with olive oil and lemon dressing.</p>
+                <button class="recipe-btn">View Recipe <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </article>
+
+        <!-- Recipe 7 -->
+        <article class="recipe-card">
+            <div class="image-strip">
+                <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929" alt="Pancakes">
+                
+            </div>
+            <div class="card-content">
+                <h3>Fluffy Pancakes</h3>
+                <div class="recipe-meta">
+                    <span class="meta-item"><i class="fas fa-clock"></i> 25 mins</span>
+                    <span class="meta-item"><i class="fas fa-star"></i> 4.8</span>
+                    <span class="meta-item"><i class="fas fa-utensils"></i> Breakfast</span>
+                </div>
+                <p>Light and fluffy pancakes served with maple syrup and fresh berries.</p>
+                <button class="recipe-btn">View Recipe <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </article>
+
+        <!-- Recipe 8 -->
+        <article class="recipe-card">
+            <div class="image-strip">
+                <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601" alt="Pasta">
+               
+            </div>
+            <div class="card-content">
+                <h3>Spaghetti Carbonara</h3>
+                <div class="recipe-meta">
+                    <span class="meta-item"><i class="fas fa-clock"></i> 20 mins</span>
+                    <span class="meta-item"><i class="fas fa-star"></i> 4.9</span>
+                    <span class="meta-item"><i class="fas fa-flag"></i> Italian</span>
+                </div>
+                <p>Creamy pasta with eggs, cheese, pancetta, and black pepper.</p>
+                <button class="recipe-btn">View Recipe <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </article>
+
+        <!-- Recipe 9 -->
+        <article class="recipe-card">
+            <div class="image-strip">
+                <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb" alt="Ice Cream">
+                
+            </div>
+            <div class="card-content">
+                <h3>Vanilla Ice Cream</h3>
+                <div class="recipe-meta">
+                    <span class="meta-item"><i class="fas fa-clock"></i> 4 hours</span>
+                    <span class="meta-item"><i class="fas fa-star"></i> 5.0</span>
+                    <span class="meta-item"><i class="fas fa-ice-cream"></i> Dessert</span>
+                </div>
+                <p>Homemade creamy vanilla ice cream with real vanilla beans.</p>
+                <button class="recipe-btn">View Recipe <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </article>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab" id="fab">
+        <i class="fas fa-plus"></i>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    <footer class="custom-footer">
+        <div class="footer-container">
+          <div class="footer-row">
+            <div class="footer-col">
+              <h4>Italian Culinary Journey</h4>
+              <p>Exploring the flavors of Italy, one recipe at a time. Join us in celebrating food, culture, and tradition.</p>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+      
+            <div class="footer-col">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Recipes</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+      
+            <div class="footer-col">
+              <h4>Categories</h4>
+              <ul>
+                <li><a href="#">Appetizers</a></li>
+                <li><a href="#">Main Courses</a></li>
+                <li><a href="#">Desserts</a></li>
+                <li><a href="#">Drinks</a></li>
+                <li><a href="#">Vegetarian</a></li>
+              </ul>
+            </div>
+      
+            <div class="footer-col">
+              <h4>Contact</h4>
+              <ul class="contact-info">
+                <li><i class="fas fa-map-marker-alt"></i> 12 Roma Avenue, Italy</li>
+                <li><i class="fas fa-phone"></i> +39 123 456 7890</li>
+                <li><i class="fas fa-envelope"></i> info@italianculinary.com</li>
+              </ul>
+            </div>
+          </div>
+      
+          <hr />
+          <div class="footer-bottom">
+            <p>&copy; 2025 Italian Culinary Journey. All rights reserved.</p>
+            <div class="legal-links">
+              <a href="#">Privacy Policy</a> |
+              <a href="#">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+      
+      
+    <script>
+        // Back to top button functionality
+        const backToTop = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Floating action button functionality
+        const fab = document.getElementById('fab');
+        fab.addEventListener('click', () => {
+            // Create ripple effect
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            fab.appendChild(ripple);
+            
+            // Remove ripple after animation
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+            
+            // Show notification
+            showNotification('Create new recipe or share your own!');
+        });
+        
+        // Show notification function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <i class="fas fa-info-circle"></i> ${message}
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeIn 0.3s ease reverse';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // Animate recipe cards on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.recipe-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.animation = 'fadeIn 0.8s ease forwards';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>

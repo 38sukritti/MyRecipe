@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vegetarian Recipes | FlavorShare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF7F50; /* Peach */
+            --primary-light: #FFA07A; /* Light Salmon */
+            --secondary: #FF6347; /* Tomato */
+            --accent: #FFD700; /* Gold */
+            --cream: #FFF8F0; /* Cream background */
+            --cream-dark: #FFEBD6; /* Slightly darker cream */
+            --text: #5A3E36; /* Warm brown text */
+            --text-light: #8B7355; /* Lighter brown */
+            --shadow: 0 10px 30px rgba(233, 105, 44, 0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 90% 10%, rgba(255,215,0,0.03) 0%, transparent 20%),
+                radial-gradient(circle at 10% 90%, rgba(255,127,80,0.03) 0%, transparent 20%);
+        }
+
+        /* Header */
+        .vegetarian-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            box-shadow: var(--shadow);
+        }
+
+        .vegetarian-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1543351611-58f69d7c1781?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .vegetarian-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+        }
+
+        .vegetarian-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        /* Filter & Search Bar */
+        .filter-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            border: 1px solid rgba(90, 62, 54, 0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 99, 71, 0.3);
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(90, 62, 54, 0.2);
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .search-bar i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        /* Recipe Grid */
+        .recipes-grid {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(233, 105, 44, 0.2);
+        }
+
+        .recipe-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .recipe-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .recipe-card:hover .recipe-image img {
+            transform: scale(1.1);
+        }
+
+        .recipe-content {
+            padding: 20px;
+        }
+
+        .recipe-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-dark);
+        }
+
+        .recipe-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .recipe-desc {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .recipe-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .view-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
+        }
+
+        .view-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 99, 71, 0.4);
+        }
+
+        .save-btn {
+            background: white;
+            color: var(--text);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(90, 62, 54, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .save-btn:hover {
+            background: var(--cream-dark);
+        }
+
+        .save-btn.saved {
+            background: var(--accent);
+            color: var(--text);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent);
+            color: var(--text);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .vegetarian-header h1 {
+                font-size: 2.5rem;
+            }
+            .filter-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            .search-bar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="vegetarian-header">
+        <h1>Vegetarian Recipes</h1>
+        <p>Discover delicious plant-based meals for every occasion!</p>
+    </header>
+
+    <div class="filter-section">
+        <button class="filter-btn active" data-category="all">All Recipes</button>
+        <button class="filter-btn" data-category="breakfast">Breakfast</button>
+        <button class="filter-btn" data-category="lunch">Lunch</button>
+        <button class="filter-btn" data-category="dinner">Dinner</button>
+        <button class="filter-btn" data-category="dessert">Desserts</button>
+        <div class="search-bar">
+            <input type="text" placeholder="Search recipes...">
+            <i class="fas fa-search"></i>
+        </div>
+    </div>
+
+    <div class="recipes-grid">
+        <!-- Recipe 1 -->
+        <div class="recipe-card" data-category="breakfast" data-title="avocado toast">
+            <div class="badge">Quick</div>
+            <div class="recipe-image">
+                <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Avocado Toast">
+            </div>
+            <div class="recipe-content">
+                <h3 class="recipe-title">Avocado Toast</h3>
+                <div class="recipe-meta">
+                    <span><i class="far fa-clock"></i> 10 mins</span>
+                    <span><i class="fas fa-utensils"></i> 2 servings</span>
+                </div>
+                <p class="recipe-desc">Creamy avocado on toasted sourdough with chili flakes and lemon.</p>
+                <div class="recipe-actions">
+                    <button class="view-btn">View Recipe</button>
+                    <button class="save-btn"><i class="far fa-bookmark"></i> Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recipe 2 -->
+        <div class="recipe-card" data-category="lunch" data-title="vegetable stir fry">
+            <div class="badge">Healthy</div>
+            <div class="recipe-image">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Vegetable Stir Fry">
+            </div>
+            <div class="recipe-content">
+                <h3 class="recipe-title">Vegetable Stir Fry</h3>
+                <div class="recipe-meta">
+                    <span><i class="far fa-clock"></i> 20 mins</span>
+                    <span><i class="fas fa-utensils"></i> 4 servings</span>
+                </div>
+                <p class="recipe-desc">Colorful veggies in a savory garlic-ginger sauce with tofu.</p>
+                <div class="recipe-actions">
+                    <button class="view-btn">View Recipe</button>
+                    <button class="save-btn"><i class="far fa-bookmark"></i> Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recipe 3 -->
+        <div class="recipe-card" data-category="dinner" data-title="mushroom risotto">
+            <div class="recipe-image">
+                <img src="https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Mushroom Risotto">
+            </div>
+      <a href="{%url 'app2:mushroom'%}" style="text-decoration: none; color: black;">     
+         <div class="recipe-content">
+        <h3 class="recipe-title">Mushroom Risotto</h3>
+        <div class="recipe-meta">
+            <span><i class="far fa-clock"></i> 45 mins</span>
+            <span><i class="fas fa-utensils"></i> 3 servings</span>
+        </div>
+        <p class="recipe-desc">Creamy arborio rice with wild mushrooms and parmesan.</p>
+        <div class="recipe-actions">
+            <button class="view-btn">View Recipe</button>
+            <button class="save-btn"><i class="far fa-bookmark"></i> Save</button>
+        </div>
+    </div>
+</a>
+        </div>
+
+        <!-- Recipe 4 -->
+        <div class="recipe-card" data-category="dessert" data-title="chocolate avocado mousse">
+            <div class="badge">Vegan</div>
+            <div class="recipe-image">
+                <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Chocolate Avocado Mousse">
+            </div>
+            <div class="recipe-content">
+                <h3 class="recipe-title">Chocolate Avocado Mousse</h3>
+                <div class="recipe-meta">
+                    <span><i class="far fa-clock"></i> 15 mins</span>
+                    <span><i class="fas fa-utensils"></i> 4 servings</span>
+                </div>
+                <p class="recipe-desc">Rich, creamy dessert made with avocado and dark chocolate.</p>
+                <div class="recipe-actions">
+                    <button class="view-btn">View Recipe</button>
+                    <button class="save-btn"><i class="far fa-bookmark"></i> Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recipe 5 -->
+        <div class="recipe-card" data-category="lunch" data-title="quinoa salad">
+            <div class="badge">High-Protein</div>
+            <div class="recipe-image">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Quinoa Salad">
+            </div>
+            <div class="recipe-content">
+                <h3 class="recipe-title">Quinoa Salad</h3>
+                <div class="recipe-meta">
+                    <span><i class="far fa-clock"></i> 25 mins</span>
+                    <span><i class="fas fa-utensils"></i> 6 servings</span>
+                </div>
+                <p class="recipe-desc">Nutrient-packed salad with quinoa, veggies, and lemon dressing.</p>
+                <div class="recipe-actions">
+                    <button class="view-btn">View Recipe</button>
+                    <button class="save-btn"><i class="far fa-bookmark"></i> Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recipe 6 -->
+        <div class="recipe-card" data-category="dinner" data-title="eggplant parmesan">
+            <div class="recipe-image">
+                <img src="https://www.istockphoto.com/photo/tradicional-parmigiana-di-melanzane-baked-eggplant-italy-sicily-cousine-baked-gm1168662503-322766325?utm_campaign=srp_photos_top&utm_content=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Feggplant-parmessan&utm_medium=affiliate&utm_source=unsplash&utm_term=eggplant+parmessan%3A%3A%3A" alt="Eggplant Parmesan">
+            </div>
+            <div class="recipe-content">
+                <h3 class="recipe-title">Eggplant Parmesan</h3>
+                <div class="recipe-meta">
+                    <span><i class="far fa-clock"></i> 60 mins</span>
+                    <span><i class="fas fa-utensils"></i> 4 servings</span>
+                </div>
+                <p class="recipe-desc">Breaded eggplant with marinara and melted mozzarella.</p>
+                <div class="recipe-actions">
+                    <button class="view-btn">View Recipe</button>
+                    <button class="save-btn"><i class="far fa-bookmark"></i> Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter Recipes by Category
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const recipeCards = document.querySelectorAll('.recipe-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                
+                recipeCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search Functionality
+        const searchInput = document.querySelector('.search-bar input');
+        
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            recipeCards.forEach(card => {
+                const title = card.dataset.title.toLowerCase();
+                
+                if (title.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Save Recipe Functionality
+        const saveBtns = document.querySelectorAll('.save-btn');
+        
+        saveBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('saved');
+                this.innerHTML = this.classList.contains('saved') 
+                    ? '<i class="fas fa-bookmark"></i> Saved' 
+                    : '<i class="far fa-bookmark"></i> Save';
+                
+                // Store in localStorage
+                const recipeTitle = this.closest('.recipe-card').querySelector('.recipe-title').textContent;
+                const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+                
+                if (this.classList.contains('saved')) {
+                    savedRecipes.push(recipeTitle);
+                } else {
+                    const index = savedRecipes.indexOf(recipeTitle);
+                    if (index > -1) savedRecipes.splice(index, 1);
+                }
+                
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+            });
+        });
+
+        // Check saved recipes on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            
+            recipeCards.forEach(card => {
+                const title = card.querySelector('.recipe-title').textContent;
+                const saveBtn = card.querySelector('.save-btn');
+                
+                if (savedRecipes.includes(title)) {
+                    saveBtn.classList.add('saved');
+                    saveBtn.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+                }
+            });
+        });
+
+        // View Recipe Redirect
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const recipeTitle = this.closest('.recipe-card').querySelector('.recipe-title').textContent;
+                const slug = recipeTitle.toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '');
+                window.location.href = `recipe-${slug}.html`;
+
+            });
+        });
+    </script>
+</body>
+</html>

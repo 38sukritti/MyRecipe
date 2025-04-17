@@ -1,0 +1,1693 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TastyShare | Recipe Sharing Platform</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/home3.css' %}">
+    <style>
+        /* Chatbot Styling */
+        .ai-chatbox {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            max-height: 500px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .ai-chatbox.active {
+            display: flex;
+        }
+
+        .chat-header {
+            background: var(--primary-color, #ff6b6b);
+            color: white;
+            padding: 15px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h5 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: 350px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message p {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin: 0;
+        }
+
+        .message.user p {
+            background: var(--primary-color, #ff6b6b);
+            color: white;
+        }
+
+        .message.bot p {
+            background: #f1f1f1;
+            color: #333;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 20px;
+            background: #f1f1f1;
+        }
+
+        .chat-input button {
+            background: var(--primary-color, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background: #e55a5a;
+        }
+
+        /* Floating Chat Button */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color, #ff6b6b);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            z-index: 1000;
+            font-size: 1.5rem;
+            transition: background 0.3s;
+        }
+
+        .floating-btn:hover {
+            background: #e55a5a;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="hero-title" data-translate="main-heading">Share Your Culinary Creations</h1>
+            <p class="hero-subtitle" data-translate="hero-subtitle">Discover, create, and share delicious recipes with a
+                community of food lovers</p>
+            <div class="search-bar input-group">
+                <input type="text" class="form-control search-input" placeholder="Search for recipes..."
+                    id="recipeSearch" data-translate="search-placeholder">
+                <button class="btn search-btn" type="button" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="container mb-5">
+        <h2 class="text-center section-title" data-translate="features-title">Why Choose TastyShare?</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 data-translate="feature1-title">Thousands of Recipes</h3>
+                    <p data-translate="feature1-desc">Explore a vast collection of recipes from around the world, from
+                        quick meals to gourmet dishes.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 data-translate="feature2-title">Community Driven</h3>
+                    <p data-translate="feature2-desc">Connect with fellow food enthusiasts, share your creations, and
+                        get feedback from the community.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 data-translate="feature3-title">Mobile Friendly</h3>
+                    <p data-translate="feature3-desc">Access your recipes anywhere, anytime with our fully responsive
+                        platform that works on all devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="container mb-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filter-card p-3 rounded-3 bg-white shadow-sm">
+                    <h5 class="mb-3" data-translate="filter-title">Filter Recipes</h5>
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <select class="form-select" id="categoryFilter">
+                                <option selected data-translate="filter-all-categories">All Categories</option>
+                                <option data-translate="filter-vegetarian">Vegetarian</option>
+                                <option data-translate="filter-vegan">Vegan</option>
+                                <option data-translate="filter-gluten-free">Gluten-Free</option>
+                                <option data-translate="filter-desserts">Desserts</option>
+                                <option data-translate="filter-main-dishes">Main Dishes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <select class="form-select" id="timeFilter">
+                                <option selected data-translate="filter-cooking-time">Cooking Time</option>
+                                <option data-translate="filter-less-15">
+                                    < 15 mins</option>
+                                <option data-translate="filter-15-30">15-30 mins</option>
+                                <option data-translate="filter-30-60">30-60 mins</option>
+                                <option data-translate="filter-1-plus">1+ hours</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <select class="form-select" id="difficultyFilter">
+                                <option selected data-translate="filter-difficulty">Difficulty</option>
+                                <option data-translate="filter-easy">Easy</option>
+                                <option data-translate="filter-medium">Medium</option>
+                                <option data-translate="filter-hard">Hard</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <button class="btn btn-custom w-100" id="applyFilters" data-translate="filter-apply">Apply
+                                Filters</button>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="vegetarian">
+                            <label class="form-check-label" for="vegetarian"
+                                data-translate="filter-vegetarian">Vegetarian</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="vegan">
+                            <label class="form-check-label" for="vegan" data-translate="filter-vegan">Vegan</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="glutenFree">
+                            <label class="form-check-label" for="glutenFree"
+                                data-translate="filter-gluten-free">Gluten-Free</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="dairyFree">
+                            <label class="form-check-label" for="dairyFree"
+                                data-translate="filter-dairy-free">Dairy-Free</label>
+                        </div>
+                        <button class="btn btn-outline-custom ms-3" id="resetFilters"
+                            data-translate="filter-reset">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Recipes -->
+    {% if user.is_authenticated and user.is_staff %}
+    <div class="admin-actions mb-3">
+        <a href="{% url 'app2:recipe_create' %}" class="btn btn-sm btn-success">
+            <i class="fas fa-plus"></i> Add Recipe (Admin)
+        </a>
+    </div>
+    {% endif %}
+    <section class="container mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title" >Newly Added Recipes</h2>
+            <a href="#" class="btn btn-outline-custom" data-translate="view-all">View All</a>
+        </div>
+        <div class="row">
+            {% for recipe in recipes %}
+            <div class="col-md-4 mb-4">
+                <div class="card recipe-card">
+                    <img src="{{ recipe.image.url }}" class="card-img-top recipe-img" alt="{{ recipe.title }}">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="badge badge-custom bg-{{ recipe.get_category_color }}">
+                                {{ recipe.get_category_display }}
+                            </span>
+                            <small class="text-muted">
+                                <i class="fas fa-clock"></i> {{ recipe.preparation_time }} mins
+                            </small>
+                        </div>
+                        <h5 class="card-title">{{ recipe.title }}</h5>
+                        <p class="card-text">{{ recipe.description }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- Rating stars -->
+                            <div>
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= recipe.rating %}
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% else %}
+                                        <i class="far fa-star text-warning"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                <span class="ms-1">({{ recipe.review_count }})</span>
+                            </div>
+                            <!-- Save button -->
+                            <div class="save-recipe">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <!-- View button -->
+                            <a href="#" class="btn btn-sm btn-custom">View Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- Seasonal Recipes -->
+    <section class="container mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title" data-translate="seasonal-recipes">Seasonal Recipes</h2>
+            <a href="#" class="btn btn-outline-custom" data-translate="view-all">View All</a>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card recipe-card" data-category="desserts" data-time="45" data-difficulty="medium"
+                    data-tags="vegetarian,seasonal">
+                    <img src="https://images.unsplash.com/photo-1508737027454-e6454ef45afd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                        class="card-img-top recipe-img" alt="Seasonal Dessert">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="badge badge-custom bg-warning text-dark"
+                                data-translate="recipe-seasonal">Seasonal</span>
+                            <small class="text-muted"><i class="fas fa-clock"></i> <span data-translate="recipe-time">45
+                                    mins</span></small>
+                        </div>
+                        <h5 class="card-title" data-translate="seasonal1-title">Summer Berry Tart</h5>
+                        <p class="card-text" data-translate="seasonal1-desc">Light and refreshing tart with seasonal
+                            berries.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="far fa-star text-warning"></i>
+                                <span class="ms-1">(87)</span>
+                            </div>
+                            <div class="save-recipe" onclick="this.classList.toggle('saved')">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-custom" data-translate="view-recipe">View Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card recipe-card" data-category="main" data-time="30" data-difficulty="easy"
+                    data-tags="vegetarian,seasonal">
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                        class="card-img-top recipe-img" alt="Seasonal Salad">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="badge badge-custom bg-success" data-translate="recipe-seasonal">Seasonal</span>
+                            <small class="text-muted"><i class="fas fa-clock"></i> <span data-translate="recipe-time">30
+                                    mins</span></small>
+                        </div>
+                        <h5 class="card-title" data-translate="seasonal2-title">Summer Avocado Salad</h5>
+                        <p class="card-text" data-translate="seasonal2-desc">Fresh summer vegetables with creamy
+                            avocado.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star-half-alt text-warning"></i>
+                                <span class="ms-1">(112)</span>
+                            </div>
+                            <div class="save-recipe" onclick="this.classList.toggle('saved')">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-custom" data-translate="view-recipe">View Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card recipe-card" data-category="drinks" data-time="10" data-difficulty="easy"
+                    data-tags="vegan,seasonal">
+                    <img src="https://images.unsplash.com/photo-1551029506-0807df4e2031?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                        class="card-img-top recipe-img" alt="Seasonal Drink">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="badge badge-custom bg-info" data-translate="recipe-seasonal">Seasonal</span>
+                            <small class="text-muted"><i class="fas fa-clock"></i> <span data-translate="recipe-time">10
+                                    mins</span></small>
+                        </div>
+                        <h5 class="card-title" data-translate="seasonal3-title">Refreshing Lemonade</h5>
+                        <p class="card-text" data-translate="seasonal3-desc">Perfect summer drink with fresh lemons and
+                            mint.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <span class="ms-1">(145)</span>
+                            </div>
+                            <div class="save-recipe" onclick="this.classList.toggle('saved')">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-custom" data-translate="view-recipe">View Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Cooking Tips -->
+    <section class="container mb-5">
+        <h2 class="text-center section-title mb-5" data-translate="cooking-tips">Cooking Tips & Tricks</h2>
+        <div id="tipsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="tip-card p-4 rounded-3 bg-white shadow-sm text-center">
+                        <i class="fas fa-carrot fa-3x mb-3" style="color: var(--primary-color);"></i>
+                        <h4 class="mb-3" data-translate="tip1-title">Knife Skills 101</h4>
+                        <p class="mb-4" data-translate="tip1-content">Learn proper knife techniques to chop vegetables
+                            faster and more safely. Always keep your fingers tucked under and use a rocking motion with
+                            the knife.</p>
+                        <a href="#" class="btn btn-sm btn-outline-custom" data-translate="learn-more">Learn More</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="tip-card p-4 rounded-3 bg-white shadow-sm text-center">
+                        <i class="fas fa-egg fa-3x mb-3" style="color: var(--primary-color);"></i>
+                        <h4 class="mb-3" data-translate="tip2-title">Perfect Eggs Every Time</h4>
+                        <p class="mb-4" data-translate="tip2-content">For fluffy scrambled eggs, cook them low and slow.
+                            Remove from heat just before they're fully set as they'll continue cooking from residual
+                            heat.</p>
+                        <a href="#" class="btn btn-sm btn-outline-custom" data-translate="learn-more">Learn More</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="tip-card p-4 rounded-3 bg-white shadow-sm text-center">
+                        <i class="fas fa-bread-slice fa-3x mb-3" style="color: var(--primary-color);"></i>
+                        <h4 class="mb-3" data-translate="tip3-title">Bread Baking Secrets</h4>
+                        <p class="mb-4" data-translate="tip3-content">The key to perfect bread is proper kneading and
+                            proofing. Let your dough rise in a warm, draft-free place until doubled in size for best
+                            results.</p>
+                        <a href="#" class="btn btn-sm btn-outline-custom" data-translate="learn-more">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#tipsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#tipsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Blog Posts -->
+    <section class="container mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title" data-translate="blog-posts">From Our Blog</h2>
+            <a href="#" class="btn btn-outline-custom" data-translate="view-all">View All</a>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card blog-card h-100 border-0 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                        class="card-img-top" alt="Blog Post" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="d-flex mb-3">
+                            <span class="badge bg-light text-dark me-2" data-translate="blog-category">Techniques</span>
+                            <small class="text-muted"><i class="far fa-clock me-1"></i> <span
+                                    data-translate="blog-date">May 15, 2023</span></small>
+                        </div>
+                        <h5 class="card-title" data-translate="blog1-title">10 Essential Kitchen Tools Every Home Cook
+                            Needs</h5>
+                        <p class="card-text text-muted" data-translate="blog1-excerpt">Stock your kitchen with these
+                            must-have tools that will make cooking easier and more enjoyable...</p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a href="#" class="btn btn-sm btn-custom" data-translate="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card blog-card h-100 border-0 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                        class="card-img-top" alt="Blog Post" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="d-flex mb-3">
+                            <span class="badge bg-light text-dark me-2"
+                                data-translate="blog-category">Ingredients</span>
+                            <small class="text-muted"><i class="far fa-clock me-1"></i> <span
+                                    data-translate="blog-date">June 2, 2023</span></small>
+                        </div>
+                        <h5 class="card-title" data-translate="blog2-title">The Ultimate Guide to Fresh Herbs and How to
+                            Use Them</h5>
+                        <p class="card-text text-muted" data-translate="blog2-excerpt">Learn how to select, store, and
+                            incorporate fresh herbs into your cooking for maximum flavor...</p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a href="#" class="btn btn-sm btn-custom" data-translate="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card blog-card h-100 border-0 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                        class="card-img-top" alt="Blog Post" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="d-flex mb-3">
+                            <span class="badge bg-light text-dark me-2" data-translate="blog-category">Meal
+                                Planning</span>
+                            <small class="text-muted"><i class="far fa-clock me-1"></i> <span
+                                    data-translate="blog-date">June 18, 2023</span></small>
+                        </div>
+                        <h5 class="card-title" data-translate="blog3-title">How to Meal Prep Like a Pro: Save Time and
+                            Eat Healthier</h5>
+                        <p class="card-text text-muted" data-translate="blog3-excerpt">Discover our step-by-step guide
+                            to efficient meal prepping that will transform your weekly routine...</p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a href="#" class="btn btn-sm btn-custom" data-translate="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Now -->
+    <section class="container mb-5">
+        <h2 class="section-title mb-4" data-translate="trending-now">Trending Now</h2>
+        <div id="trendingCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card recipe-card">
+                                <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                                    class="card-img-top recipe-img" alt="Avocado Toast">
+                                <div class="card-body">
+                                    <h5 class="card-title" data-translate="trending1-title">Avocado Toast</h5>
+                                    <p class="card-text" data-translate="trending1-desc">Simple yet delicious breakfast
+                                        option.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card recipe-card">
+                                <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                                    class="card-img-top recipe-img" alt="Smoothie Bowl">
+                                <div class="card-body">
+                                    <h5 class="card-title" data-translate="trending2-title">Smoothie Bowl</h5>
+                                    <p class="card-text" data-translate="trending2-desc">Healthy and refreshing smoothie
+                                        bowl.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card recipe-card">
+                                <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                                    class="card-img-top recipe-img" alt="Eggs Benedict">
+                                <div class="card-body">
+                                    <h5 class="card-title" data-translate="trending3-title">Eggs Benedict</h5>
+                                    <p class="card-text" data-translate="trending3-desc">Classic brunch favorite.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card recipe-card">
+                                <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                                    class="card-img-top recipe-img" alt="Pancakes">
+                                <div class="card-body">
+                                    <h5 class="card-title" data-translate="trending4-title">Fluffy Pancakes</h5>
+                                    <p class="card-text" data-translate="trending4-desc">Perfect weekend breakfast.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card recipe-card">
+                                <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                                    class="card-img-top recipe-img" alt="French Toast">
+                                <div class="card-body">
+                                    <h5 class="card-title" data-translate="trending5-title">French Toast</h5>
+                                    <p class="card-text" data-translate="trending5-desc">Sweet and satisfying.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card recipe-card">
+                                <img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                                    class="card-img-top recipe-img" alt="Omelette">
+                                <div class="card-body">
+                                    <h5 class="card-title" data-translate="trending6-title">Cheese Omelette</h5>
+                                    <p class="card-text" data-translate="trending6-desc">Protein-packed breakfast.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#trendingCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#trendingCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+
+    </head>
+
+    <body>
+        <section class="cooking-mode" style="margin-left:90px;">
+            <h2 class="section-title mb-4">How do you want to cook today?</h2>
+            <div class="mode-toggle">
+                <button class="mode-btn active" data-mode="equipment">By Equipment</button>
+                <button class="mode-btn" data-mode="diet">By Diet</button>
+                <button class="mode-btn" data-mode="occasion">By Occasion</button>
+            </div>
+
+            <!-- Equipment Mode -->
+            <div class="mode-content active" id="equipment-mode">
+                <div class="mode-grid">
+                    <div class="mode-card"><i class="fas fa-tachometer-alt"></i>
+                        <h3>Instant Pot</h3>
+                        <p>137 recipes</p>
+                    </div>
+                    <div class="mode-card"><i class="fas fa-blender"></i>
+                        <h3>Blender</h3>
+                        <p>89 recipes</p>
+                    </div>
+                    <div class="mode-card"><i class="fas fa-fire"></i>
+                        <h3>Grill</h3>
+                        <p>112 recipes</p>
+                    </div>
+                    <div class="mode-card"><i class="fas fa-temperature-low"></i>
+                        <h3>Slow Cooker</h3>
+                        <p>76 recipes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diet Mode -->
+            <div class="mode-content" id="diet-mode">
+                <div class="mode-grid">
+                    <a href="{%url 'app2:diet'%}" style="text-decoration: none; color: black;">
+                        <div class="mode-card"><i class="fas fa-leaf"></i>
+                            <h3>Vegetarian</h3>
+                            <p>324 recipes</p>
+                        </div>
+                    </a>
+                    <div class="mode-card"><i class="fas fa-seedling"></i>
+                        <h3>Vegan</h3>
+                        <p>198 recipes</p>
+                    </div>
+                    <div class="mode-card"><i class="fas fa-drumstick-bite"></i>
+                        <h3>Keto</h3>
+                        <p>156 recipes</p>
+                    </div>
+                    <div class="mode-card"><i class="fas fa-wheat"></i>
+                        <h3>Gluten-Free</h3>
+                        <p>210 recipes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Occasion Mode -->
+            <div class="mode-content" id="occasion-mode">
+                <div class="mode-grid">
+                    <a href="{%url 'app2:party'%}" style="color: black; text-decoration: none; ">
+                        <div class="mode-card"><i class="fas fa-birthday-cake"></i>
+                            <h3>Party</h3>
+                            <p>145 recipes</p>
+                        </div>
+                    </a>
+                    <div class="mode-card"><i class="fas fa-heart"></i>
+                        <h3>Date Night</h3>
+                        <p>87 recipes</p>
+                    </div>
+                    <div class="mode-card"><i class="fas fa-sun"></i>
+                        <h3>Brunch</h3>
+                        <p>132 recipes</p>
+                    </div>
+                    <div class="mode-card"><i class="fas fa-campground"></i>
+                        <h3>Picnic</h3>
+                        <p>68 recipes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <br><br><br>
+        <!-- Community Highlights -->
+        <section class="container mb-5">
+            <h2 class="text-center section-title mb-5" data-translate="community-highlights">Community Highlights</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="user-card text-center p-4 rounded-3 bg-white shadow-sm">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle mb-3"
+                            width="100" height="100" alt="User">
+                        <h5>Chef Maria</h5>
+                        <p class="text-muted mb-3" data-translate="user1-title">Professional Chef</p>
+                        <div class="achievements mb-3">
+                            <span class="badge bg-primary me-1"><i class="fas fa-award"></i> <span
+                                    data-translate="achievement-top">Top Contributor</span></span>
+                            <span class="badge bg-success me-1"><i class="fas fa-fire"></i> <span
+                                    data-translate="achievement-trending">Trending</span></span>
+                        </div>
+                        <p class="mb-3" data-translate="user1-quote">"Sharing my passion for Italian cuisine with the
+                            community!"</p>
+                        <a href="#" class="btn btn-sm btn-outline-custom" data-translate="view-profile">View Profile</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="user-card text-center p-4 rounded-3 bg-white shadow-sm">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle mb-3"
+                            width="100" height="100" alt="User">
+                        <h5>Baker John</h5>
+                        <p class="text-muted mb-3" data-translate="user2-title">Home Baker</p>
+                        <div class="achievements mb-3">
+                            <span class="badge bg-warning text-dark me-1"><i class="fas fa-star"></i> <span
+                                    data-translate="achievement-rising">Rising Star</span></span>
+                            <span class="badge bg-info me-1"><i class="fas fa-thumbs-up"></i> <span
+                                    data-translate="achievement-liked">Most Liked</span></span>
+                        </div>
+                        <p class="mb-3" data-translate="user2-quote">"Turning simple ingredients into delicious
+                            desserts!"</p>
+                        <a href="#" class="btn btn-sm btn-outline-custom" data-translate="view-profile">View Profile</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="user-card text-center p-4 rounded-3 bg-white shadow-sm">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" class="rounded-circle mb-3"
+                            width="100" height="100" alt="User">
+                        <h5>Healthy Emma</h5>
+                        <p class="text-muted mb-3" data-translate="user3-title">Nutritionist</p>
+                        <div class="achievements mb-3">
+                            <span class="badge bg-danger me-1"><i class="fas fa-heart"></i> <span
+                                    data-translate="achievement-health">Health Expert</span></span>
+                            <span class="badge bg-secondary me-1"><i class="fas fa-check"></i> <span
+                                    data-translate="achievement-verified">Verified</span></span>
+                        </div>
+                        <p class="mb-3" data-translate="user3-quote">"Creating healthy versions of your favorite
+                            dishes!"</p>
+                        <a href="#" class="btn btn-sm btn-outline-custom" data-translate="view-profile">View Profile</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Testimonials Section -->
+        <section class="container mb-5">
+            <h2 class="text-center section-title mb-5">What Our Users Say</h2>
+            <div class="row">
+                {% for testimonial in testimonials %}
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card text-center">
+                        <!-- User image and details -->
+                        {% if testimonial.user.profile.image %}
+                        <img src="{{ testimonial.user.profile.image.url }}" class="testimonial-img rounded-circle"
+                            alt="{{ testimonial.user.username }}">
+                        {% endif %}
+                        <h5>{{ testimonial.user.get_full_name|default:testimonial.user.username }}</h5>
+                        <p class="text-muted">{{ testimonial.user_title }}</p>
+                        <p>{{ testimonial.content }}</p>
+
+                        <!-- Rating stars -->
+                        <div class="rating mb-2">
+                            {% for i in "12345" %}
+                            {% if forloop.counter <= testimonial.rating %} <i class="fas fa-star text-warning"></i>
+                                {% else %}
+                                <i class="far fa-star text-warning"></i>
+                                {% endif %}
+                                {% endfor %}
+                        </div>
+
+                    
+                        {% if user == testimonial.user or user.is_superuser %}
+                        <div class="mt-2">
+                            {% if user == testimonial.user %}
+                            <button class="btn btn-sm btn-outline-primary edit-testimonial"
+                                data-id="{{ testimonial.id }}" data-bs-toggle="modal"
+                                data-bs-target="#testimonialModal">
+                                Edit
+                            </button>
+                            {% endif %}
+                            <form method="post" action="{% url 'app2:delete_testimonial' testimonial.pk %}"
+                                style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                        <small class="text-muted">{{ testimonial.created_at|date:"F j, Y" }}</small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Add Testimonial Button -->
+            <div class="text-center mt-5">
+                {% if user.is_authenticated %}
+                <button class="btn btn-primary" id="add-testimonial-btn" data-bs-toggle="modal"
+                    data-bs-target="#testimonialModal" style="background-color: #ff6b6b;">
+                    Add Your Testimonial
+                </button>
+                {% else %}
+                <a href="{% url 'app1:login' %}?next={{ request.path }}" class="btn btn-primary" style="background-color: #ff6b6b;">
+                    Login to Add Your Testimonial
+                </a>
+                {% endif %}
+            </div>
+        </section>
+
+<!-- Testimonial Modal -->
+<div class="modal fade" id="testimonialModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Add Your Testimonial</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="{% url 'app2:home' %}" id="testimonialForm">
+                {% csrf_token %}
+                <input type="hidden" name="testimonial_id" id="testimonialId" value="">
+                <div class="modal-body">
+                    <!-- Use Django form fields instead of raw HTML -->
+                    <div class="mb-3">
+                        {{ form.user_title.label_tag }}
+                        {{ form.user_title }}
+                        {{ form.user_title.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.content.label_tag }}
+                        {{ form.content }}
+                        {{ form.content.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.rating.label_tag }}
+                        <div class="rating-input">
+                            {% for i in "12345" %}
+                            <i class="far fa-star rating-star" data-value="{{ forloop.counter }}"></i>
+                            {% endfor %}
+                            {{ form.rating }}
+                        </div>
+                        {{ form.rating.errors }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+        <!-- Newsletter Section (unchanged) -->
+        <section class="newsletter-section">
+            <div class="container text-center">
+                <h2 class="mb-4" data-translate="newsletter-title">Stay Updated With New Recipes</h2>
+                <p class="mb-5" data-translate="newsletter-subtitle">Subscribe to our newsletter and get
+                    weekly recipe
+                    inspiration delivered to your inbox.</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <input type="email" class="form-control newsletter-input" placeholder="Your email address"
+                                data-translate="newsletter-placeholder">
+                            <button class="btn newsletter-btn" type="button"
+                                data-translate="newsletter-subscribe">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Chatbot -->
+        <div class="ai-chatbox" id="aiChatbox">
+            <div class="chat-header">
+                <h5>Recipe Assistant</h5>
+                <button class="close-chat"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Ask about recipes...">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <!-- Floating Chat Button -->
+        <button class="floating-btn" id="aiButton">
+            <i class="fas fa-robot"></i>
+        </button>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Rating stars interaction
+                const stars = document.querySelectorAll('.rating-star');
+                const ratingInput = document.getElementById('id_rating');
+
+                if (stars.length && ratingInput) {
+                    // Initialize with 5 stars selected
+                    for (let i = 0; i < 5; i++) {
+                        stars[i].classList.remove('far');
+                        stars[i].classList.add('fas');
+                    }
+
+                    stars.forEach(star => {
+                        star.addEventListener('click', function () {
+                            const value = parseInt(this.getAttribute('data-value'));
+                            ratingInput.value = value;
+
+                            // Update star display
+                            stars.forEach((s, index) => {
+                                if (index < value) {
+                                    s.classList.remove('far');
+                                    s.classList.add('fas');
+                                } else {
+                                    s.classList.remove('fas');
+                                    s.classList.add('far');
+                                }
+                            });
+                        });
+                    });
+                }
+
+                // Make sure Bootstrap JS is working for the modal
+                const addButton = document.getElementById('add-testimonial-btn');
+                if (addButton) {
+                    addButton.addEventListener('click', function () {
+                        // Reset form when opening modal
+                        document.getElementById('id_user_title').value = '';
+                        document.getElementById('id_content').value = '';
+                        document.getElementById('id_rating').value = '5';
+
+                        // Reset stars to 5
+                        stars.forEach((star, index) => {
+                            if (index < 5) {
+                                star.classList.remove('far');
+                                star.classList.add('fas');
+                            } else {
+                                star.classList.remove('fas');
+                                star.classList.add('far');
+                            }
+                        });
+                    });
+                }
+            });
+            // AI Chatbot functionality
+            const initChatbot = () => {
+    const aiButton = document.getElementById('aiButton');
+    const aiChatbox = document.getElementById('aiChatbox');
+    const closeChat = document.querySelector('.close-chat');
+    const chatMessages = document.getElementById('chatMessages');
+    const userInput = document.getElementById('userInput');
+    const sendMessage = document.getElementById('sendMessage');
+
+    const botResponses = {
+        "hello": "Hey there! Welcome to our recipe-sharing community! 😋 What dish are you craving today?",
+        "hi": "Hi! Ready to cook something delicious? Tell me what you’re in the mood for, or I can suggest a recipe!",
+        "maggie": "Maggie’s always a winner! First love forever !! Try a classic Spaghetti Carbonara: eggs, pecorino, guanciale, and black pepper. Want the full recipe? Or maybe explore other pasta dishes like Pesto Linguine? Check out <a href='{%url 'app2:maggie'%}'>Maggie Recipes</a>.",
+        "pasta": "Maggie’s always a winner! First love forever !! Try a classic Spaghetti Carbonara: eggs, pecorino, guanciale, and black pepper. Want the full recipe? Or maybe explore other pasta dishes like Pesto Linguine? Check out <a href='#'>Maggie Recipes</a>.",
+        "chicken": "Chicken is so versatile! How about a juicy Lemon Garlic Roast Chicken? Marinate with lemon, garlic, and herbs, then roast at 375°F for 1-1.5 hours. Need the step-by-step? Or try Chicken Tikka Masala for something spicy! See more at <a href='#'>Chicken Recipes</a>.",
+        "dessert": "Sweet tooth calling? Whip up a Chocolate Lava Cake: rich, gooey, and done in 20 minutes! Want the recipe? Or maybe a lighter option like Lemon Bars? Browse ideas at <a href='{%url 'app2:cheesecake'%}'>Dessert Recipes</a>.",
+        "vegan": "Vegan vibes! How about a Chickpea Curry with coconut milk and spinach? Packed with flavor and ready in 30 minutes. Need details? Or try a Quinoa Buddha Bowl. Find more at <a href='{%url 'app2:diet'%}'>Vegan Recipes</a>.",
+        "quick": "Short on time? A Caprese Salad takes 10 minutes: tomatoes, mozzarella, basil, balsamic drizzle. Want more quick ideas? Try Stir-Fry Veggies with Rice. Check out <a href='#'>Quick Recipes</a>.",
+        "share": "Got a recipe to share? Awesome! Tell me about it—ingredients, steps, or even a fun story behind it. I can help format it for our community! Want tips on writing a great recipe? Visit <a href='#'>Share Your Recipe</a>.",
+        "ingredients": "Looking for recipes based on what’s in your fridge? List a few ingredients you have, and I’ll suggest something tasty! Or learn how to stock a pantry at <a href='#'>Pantry Essentials</a>.",
+        "tips": "Cooking tips coming up! Always mise en place (prep ingredients first) to save time. Need specific advice, like knife skills or baking hacks? Explore more at <a href='#'>Cooking Tips</a>.",
+        "how are you": "I'm fine , Thankyou , ask me any questions so I'll able to help you with some amazing dishes. ",
+        "default": "I’m here to help with recipes, cooking tips, or sharing your culinary creations! Try asking for pasta, chicken, vegan dishes, desserts, quick meals, or how to share a recipe. What’s on your mind?"
+    };
+
+    // Toggle chatbox visibility
+    aiButton.addEventListener('click', function () {
+        aiChatbox.classList.toggle('active');
+    });
+
+    closeChat.addEventListener('click', function () {
+        aiChatbox.classList.remove('active');
+    });
+
+    // Handle sending messages
+    function sendUserMessage() {
+        const message = userInput.value.trim();
+        if (message === '') return;
+
+        // Add user message to chat
+        addMessage(message, 'user');
+        userInput.value = '';
+
+        // Simulate bot thinking
+        setTimeout(() => {
+            const response = generateBotResponse(message);
+            addMessage(response, 'bot');
+        }, 800);
+    }
+
+    sendMessage.addEventListener('click', sendUserMessage);
+    userInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') sendUserMessage();
+    });
+
+    // Add message to chat
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', sender);
+        messageDiv.innerHTML = `<p>${text}</p>`;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Generate bot response (improved logic)
+    function generateBotResponse(message) {
+        const lowerMessage = message.toLowerCase();
+
+        // Check for exact matches first (e.g., "maggie", "pasta")
+        if (botResponses[lowerMessage]) {
+            return botResponses[lowerMessage];
+        }
+
+        // Check for partial matches (e.g., "I love maggie", "how to cook pasta?")
+        if (lowerMessage.includes("maggie") || lowerMessage.includes("pasta")) {
+            return botResponses["maggie"];
+        }
+
+        // Check for other keywords in the message
+        for (const [keyword, response] of Object.entries(botResponses)) {
+            if (keyword !== "default" && lowerMessage.includes(keyword)) {
+                return response;
+            }
+        }
+
+        return botResponses['default'];
+    }
+};
+
+
+
+
+            // Language Toggle with Hindi Implementation
+            
+            // Filter Functionality
+            document.getElementById('applyFilters').addEventListener('click', function () {
+                const category = document.getElementById('categoryFilter').value;
+                const time = document.getElementById('timeFilter').value;
+                const difficulty = document.getElementById('difficultyFilter').value;
+                const vegetarian = document.getElementById('vegetarian').checked;
+                const vegan = document.getElementById('vegan').checked;
+                const glutenFree = document.getElementById('glutenFree').checked;
+                const dairyFree = document.getElementById('dairyFree').checked;
+
+                document.querySelectorAll('.recipe-card').forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    const cardTime = parseInt(card.getAttribute('data-time'));
+                    const cardDifficulty = card.getAttribute('data-difficulty');
+                    const cardTags = card.getAttribute('data-tags').split(',');
+
+                    let showCard = true;
+
+                    if (category !== 'All Categories' && cardCategory !== category.toLowerCase()) {
+                        showCard = false;
+                    }
+
+                    if (time !== 'Cooking Time') {
+                        if (time === '< 15 mins' && cardTime >= 15) showCard = false;
+                        if (time === '15-30 mins' && (cardTime < 15 || cardTime > 30)) showCard = false;
+                        if (time === '30-60 mins' && (cardTime < 30 || cardTime > 60)) showCard = false;
+                        if (time === '1+ hours' && cardTime <= 60) showCard = false;
+                    }
+
+                    if (difficulty !== 'Difficulty' && cardDifficulty !== difficulty.toLowerCase()) {
+                        showCard = false;
+                    }
+
+                    if (vegetarian && !cardTags.includes('vegetarian')) showCard = false;
+                    if (vegan && !cardTags.includes('vegan')) showCard = false;
+                    if (glutenFree && !cardTags.includes('gluten-free')) showCard = false;
+                    if (dairyFree && !cardTags.includes('dairy-free')) showCard = false;
+
+                    card.style.display = showCard ? 'block' : 'none';
+                });
+            });
+
+            document.getElementById('resetFilters').addEventListener('click', function () {
+                document.getElementById('categoryFilter').value = 'All Categories';
+                document.getElementById('timeFilter').value = 'Cooking Time';
+                document.getElementById('difficultyFilter').value = 'Difficulty';
+                document.getElementById('vegetarian').checked = false;
+                document.getElementById('vegan').checked = false;
+                document.getElementById('glutenFree').checked = false;
+                document.getElementById('dairyFree').checked = false;
+
+                document.querySelectorAll('.recipe-card').forEach(card => {
+                    card.style.display = 'block';
+                });
+            });
+
+            // Search Functionality
+            document.getElementById('searchBtn').addEventListener('click', function () {
+                const query = document.getElementById('recipeSearch').value.toLowerCase();
+                document.querySelectorAll('.recipe-card').forEach(card => {
+                    const title = card.querySelector('.card-title').textContent.toLowerCase();
+                    const desc = card.querySelector('.card-text').textContent.toLowerCase();
+                    if (title.includes(query) || desc.includes(query)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            document.getElementById('recipeSearch').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('searchBtn').click();
+                }
+            });
+
+            // Initialize Chatbot
+            initChatbot();
+
+            const modeBtns = document.querySelectorAll('.mode-btn');
+            const modeContents = document.querySelectorAll('.mode-content');
+
+            modeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mode = btn.dataset.mode;
+
+                    // Remove active class from all buttons and add to clicked one
+                    modeBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Toggle content visibility
+                    modeContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+
+                    document.getElementById(`${mode}-mode`).classList.add('active');
+                });
+            });
+
+          
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle edit button clicks
+    document.querySelectorAll('.edit-testimonial').forEach(button => {
+        button.addEventListener('click', function() {
+            const testimonialId = this.getAttribute('data-id');
+            fetch(`/get-testimonial/${testimonialId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('modalTitle').textContent = 'Edit Your Testimonial';
+                    document.getElementById('testimonialId').value = testimonialId;
+                    document.getElementById('id_user_title').value = data.user_title;
+                    document.getElementById('id_content').value = data.content;
+                    document.getElementById('id_rating').value = data.rating;
+                    
+                    // Update star display
+                    document.querySelectorAll('.rating-star').forEach(star => {
+                        if (star.getAttribute('data-value') <= data.rating) {
+                            star.classList.remove('far');
+                            star.classList.add('fas');
+                        } else {
+                            star.classList.remove('fas');
+                            star.classList.add('far');
+                        }
+                    });
+                });
+        });
+    });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // When edit button is clicked
+    document.querySelectorAll('.edit-testimonial').forEach(button => {
+        button.addEventListener('click', function() {
+            const testimonialId = this.getAttribute('data-id');
+            // If user is superuser, prevent editing
+            if (user.is_superuser){
+                event.preventDefault();
+                alert('Superusers can only delete testimonials, not edit them.');}
+           else{
+                // Normal edit flow
+                document.getElementById('testimonialId').value = testimonialId;
+                document.getElementById('modalTitle').textContent = 'Edit Your Testimonial';
+           }
+        });
+    });
+});
+    // Handle add testimonial button
+    document.getElementById('add-testimonial-btn').addEventListener('click', function() {
+        document.getElementById('modalTitle').textContent = 'Add Your Testimonial';
+        document.getElementById('testimonialId').value = '';
+        document.getElementById('testimonialForm').reset();
+        
+        // Reset stars to default (5)
+        document.querySelectorAll('.rating-star').forEach(star => {
+            if (star.getAttribute('data-value') <= 5) {
+                star.classList.remove('far');
+                star.classList.add('fas');
+            } else {
+                star.classList.remove('fas');
+                star.classList.add('far');
+            }
+        });
+    });
+
+    // Handle star rating clicks
+    document.querySelectorAll('.rating-star').forEach(star => {
+        star.addEventListener('click', function() {
+            const value = this.getAttribute('data-value');
+            document.getElementById('id_rating').value = value;
+            
+            document.querySelectorAll('.rating-star').forEach(s => {
+                if (s.getAttribute('data-value') <= value) {
+                    s.classList.remove('far');
+                    s.classList.add('fas');
+                } else {
+                    s.classList.remove('fas');
+                    s.classList.add('far');
+                }
+            });
+        });
+    });
+});
+
+        </script>
+    </body>
+
+</html>
+{% endblock %}
+{%block extra_js%} <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Define translations outside the function so it's available globally
+        const translations = {
+            'en': {
+                            // Navigation
+                            'nav-home': 'Home',
+                            'nav-recipes': 'Recipes',
+                            'nav-categories': 'Categories',
+                            'nav-about': 'About',
+                            'nav-contact': 'Contact',
+                            'nav-login': 'Login',
+                            'nav-signup': 'Sign Up',
+                            // Hero Section
+                            'main-heading': 'Share Your Culinary Creations',
+                            'hero-subtitle': 'Discover, create, and share delicious recipes with a community of food lovers',
+                            'search-placeholder': 'Search for recipes...',
+                            // Features
+                            'features-title': 'Why Choose TastyShare?',
+                            'feature1-title': 'Thousands of Recipes',
+                            'feature1-desc': 'Explore a vast collection of recipes from around the world, from quick meals to gourmet dishes.',
+                            'feature2-title': 'Community Driven',
+                            'feature2-desc': 'Connect with fellow food enthusiasts, share your creations, and get feedback from the community.',
+                            'feature3-title': 'Mobile Friendly',
+                            'feature3-desc': 'Access your recipes anywhere, anytime with our fully responsive platform that works on all devices.',
+                            // Timer
+                            'timer-title': 'Cooking Timer',
+                            'timer-minutes': 'Minutes',
+                            'timer-set': 'Set',
+                            // Filters
+                            'filter-title': 'Filter Recipes',
+                            'filter-all-categories': 'All Categories',
+                            'filter-vegetarian': 'Vegetarian',
+                            'filter-vegan': 'Vegan',
+                            'filter-gluten-free': 'Gluten-Free',
+                            'filter-desserts': 'Desserts',
+                            'filter-main-dishes': 'Main Dishes',
+                            'filter-cooking-time': 'Cooking Time',
+                            'filter-less-15': '< 15 mins',
+                            'filter-15-30': '15-30 mins',
+                            'filter-30-60': '30-60 mins',
+                            'filter-1-plus': '1+ hours',
+                            'filter-difficulty': 'Difficulty',
+                            'filter-easy': 'Easy',
+                            'filter-medium': 'Medium',
+                            'filter-hard': 'Hard',
+                            'filter-apply': 'Apply Filters',
+                            'filter-reset': 'Reset',
+                            'filter-dairy-free': 'Dairy-Free',
+                            // Recipes
+                            'popular-recipes': 'Popular Recipes',
+                            'view-all': 'View All',
+                            'view-recipe': 'View Recipe',
+                            'recipe-vegetarian': 'Vegetarian',
+                            'recipe-italian': 'Italian',
+                            'recipe-breakfast': 'Breakfast',
+                            'recipe-time': 'mins',
+                            'recipe1-title': 'Mediterranean Salad',
+                            'recipe1-desc': 'Fresh and healthy salad with feta cheese and olives.',
+                            'recipe2-title': 'Creamy Garlic Pasta',
+                            'recipe2-desc': 'Rich and creamy pasta with garlic and parmesan.',
+                            'recipe3-title': 'Fluffy Blueberry Pancakes',
+                            'recipe3-desc': 'Light and fluffy pancakes bursting with blueberries.',
+                            // Seasonal Recipes
+                            'seasonal-recipes': 'Seasonal Recipes',
+                            'recipe-seasonal': 'Seasonal',
+                            'seasonal1-title': 'Summer Berry Tart',
+                            'seasonal1-desc': 'Light and refreshing tart with seasonal berries.',
+                            'seasonal2-title': 'Summer Avocado Salad',
+                            'seasonal2-desc': 'Fresh summer vegetables with creamy avocado.',
+                            'seasonal3-title': 'Refreshing Lemonade',
+                            'seasonal3-desc': 'Perfect summer drink with fresh lemons and mint.',
+                            // Featured Recipe
+                            'featured-badge': 'Recipe of the Day',
+                            'featured-title': 'Mediterranean Power Bowl',
+                            'featured-desc': 'This vibrant Mediterranean bowl is packed with fresh vegetables, quinoa, and a delicious lemon-tahini dressing. It\'s a perfect balance of flavors and nutrients for a healthy lunch or dinner.',
+                            'featured-chef': 'Professional Chef',
+                            'recipe-servings': '2 servings',
+                            'recipe-calories': '450 cal',
+                            'save-recipe': 'Save',
+                            // Cooking Tips
+                            'cooking-tips': 'Cooking Tips & Tricks',
+                            'tip1-title': 'Knife Skills 101',
+                            'tip1-content': 'Learn proper knife techniques to chop vegetables faster and more safely. Always keep your fingers tucked under and use a rocking motion with the knife.',
+                            'tip2-title': 'Perfect Eggs Every Time',
+                            'tip2-content': 'For fluffy scrambled eggs, cook them low and slow. Remove from heat just before they\'re fully set as they\'ll continue cooking from residual heat.',
+                            'tip3-title': 'Bread Baking Secrets',
+                            'tip3-content': 'The key to perfect bread is proper kneading and proofing. Let your dough rise in a warm, draft-free place until doubled in size for best results.',
+                            'learn-more': 'Learn More',
+                            // Blog Posts
+                            'blog-posts': 'From Our Blog',
+                            'blog-category': 'Techniques',
+                            'blog-date': 'May 15, 2023',
+                            'blog1-title': '10 Essential Kitchen Tools Every Home Cook Needs',
+                            'blog1-excerpt': 'Stock your kitchen with these must-have tools that will make cooking easier and more enjoyable...',
+                            'blog2-title': 'The Ultimate Guide to Fresh Herbs and How to Use Them',
+                            'blog2-excerpt': 'Learn how to select, store, and incorporate fresh herbs into your cooking for maximum flavor...',
+                            'blog3-title': 'How to Meal Prep Like a Pro: Save Time and Eat Healthier',
+                            'blog3-excerpt': 'Discover our step-by-step guide to efficient meal prepping that will transform your weekly routine...',
+                            'read-more': 'Read More',
+                            // Trending
+                            'trending-now': 'Trending Now',
+                            'trending1-title': 'Avocado Toast',
+                            'trending1-desc': 'Simple yet delicious breakfast option.',
+                            'trending2-title': 'Smoothie Bowl',
+                            'trending2-desc': 'Healthy and refreshing smoothie bowl.',
+                            'trending3-title': 'Eggs Benedict',
+                            'trending3-desc': 'Classic brunch favorite.',
+                            'trending4-title': 'Fluffy Pancakes',
+                            'trending4-desc': 'Perfect weekend breakfast.',
+                            'trending5-title': 'French Toast',
+                            'trending5-desc': 'Sweet and satisfying.',
+                            'trending6-title': 'Cheese Omelette',
+                            'trending6-desc': 'Protein-packed breakfast.',
+                            // Categories
+                            'browse-categories': 'Browse Categories',
+                            'category-fast-food': 'Fast Food',
+                            'category-vegetarian': 'Vegetarian',
+                            'category-desserts': 'Desserts',
+                            'category-drinks': 'Drinks',
+                            'category-breakfast': 'Breakfast',
+                            'category-lunch': 'Lunch',
+                            'category-dinner': 'Dinner',
+                            'category-recipes-count': 'Recipes',
+                            // Community
+                            'community-highlights': 'Community Highlights',
+                            'user1-title': 'Professional Chef',
+                            'user1-quote': '"Sharing my passion for Italian cuisine with the community!"',
+                            'user2-title': 'Home Baker',
+                            'user2-quote': '"Turning simple ingredients into delicious desserts!"',
+                            'user3-title': 'Nutritionist',
+                            'user3-quote': '"Creating healthy versions of your favorite dishes!"',
+                            'achievement-top': 'Top Contributor',
+                            'achievement-trending': 'Trending',
+                            'achievement-rising': 'Rising Star',
+                            'achievement-liked': 'Most Liked',
+                            'achievement-health': 'Health Expert',
+                            'achievement-verified': 'Verified',
+                            'view-profile': 'View Profile',
+                            // Testimonials
+                            'testimonials-title': 'What Our Users Say',
+                            'testimonial1-title': 'Home Cook',
+                            'testimonial1-quote': '"TastyShare has transformed my cooking! I\'ve discovered so many amazing recipes and made friends with fellow food lovers."',
+                            'testimonial2-title': 'Professional Chef',
+                            'testimonial2-quote': '"As a chef, I appreciate the quality of recipes on TastyShare. It\'s my go-to platform for inspiration and sharing my creations."',
+                            'testimonial3-title': 'Food Blogger',
+                            'testimonial3-quote': '"The community on TastyShare is amazing. I\'ve grown my audience and improved my recipes thanks to the feedback I receive."',
+                            // Newsletter
+                            'newsletter-title': 'Stay Updated With New Recipes',
+                            'newsletter-subtitle': 'Subscribe to our newsletter and get weekly recipe inspiration delivered to your inbox.',
+                            'newsletter-placeholder': 'Your email address',
+                            'newsletter-subscribe': 'Subscribe',
+                            // Footer
+                            'footer-description': 'Connecting food lovers around the world through the joy of cooking and sharing recipes.',
+                            'footer-quick-links': 'Quick Links',
+                            'footer-categories': 'Categories',
+                            'footer-contact': 'Contact Us',
+                            'footer-address': '123 Food Street, Culinary City',
+                            'footer-rights': 'All rights reserved.',
+                            'footer-privacy': 'Privacy Policy',
+                            'footer-terms': 'Terms of Service',
+
+                            'section-cooking-mode-title': 'How do you want to cook today?',
+                            'mode-by-equipment': 'By Equipment',
+                            'mode-by-diet': 'By Diet',
+                            'mode-by-occasion': 'By Occasion',
+
+                            // # Equipment
+                            'mode-equipment-instant-pot': 'Instant Pot',
+                            'mode-equipment-blender': 'Blender',
+                            'mode-equipment-grill': 'Grill',
+                            'mode-equipment-slow-cooker': 'Slow Cooker',
+
+                            // # Diet
+                            'mode-diet-vegetarian': 'Vegetarian',
+                            'mode-diet-vegan': 'Vegan',
+                            'mode-diet-keto': 'Keto',
+                            'mode-diet-gluten-free': 'Gluten-Free',
+
+                            // # Occasion
+                            'mode-occasion-party': 'Party',
+                            'mode-occasion-date-night': 'Date Night',
+                            'mode-occasion-brunch': 'Brunch',
+                            'mode-occasion-picnic': 'Picnic',
+
+                            // # Recipes count format (if you're using this as dynamic)
+                            'recipes-count': '{count} recipes',
+
+
+                        },
+                        'hi': {
+                            // Navigation
+                            'nav-home': 'होम',
+                            'nav-recipes': 'रेसिपी',
+                            'nav-categories': 'श्रेणियाँ',
+                            'nav-about': 'हमारे बारे में',
+                            'nav-contact': 'संपर्क करें',
+                            'nav-login': 'लॉगिन',
+                            'nav-signup': 'साइन अप',
+                            // Hero Section
+                            'main-heading': 'अपने पाक कृतियों को साझा करें',
+                            'hero-subtitle': 'भोजन प्रेमियों के समुदाय के साथ स्वादिष्ट व्यंजनों को खोजें, बनाएं और साझा करें',
+                            'search-placeholder': 'रेसिपी खोजें...',
+                            // Features
+                            'features-title': 'टेस्टीशेयर क्यों चुनें?',
+                            'feature1-title': 'हजारों रेसिपी',
+                            'feature1-desc': 'दुनिया भर से त्वरित भोजन से लेकर गोरमेट व्यंजनों तक व्यंजनों के विशाल संग्रह का अन्वेषण करें।',
+                            'feature2-title': 'समुदाय संचालित',
+                            'feature2-desc': 'साथी भोजन उत्साही लोगों के साथ जुड़ें, अपनी रचनाओं को साझा करें और समुदाय से प्रतिक्रिया प्राप्त करें।',
+                            'feature3-title': 'मोबाइल अनुकूल',
+                            'feature3-desc': 'हमारे पूरी तरह से उत्तरदायी प्लेटफॉर्म के साथ कहीं भी, कभी भी अपनी रेसिपी तक पहुंचें जो सभी उपकरणों पर काम करता है।',
+                            // Timer
+                            'timer-title': 'खाना पकाने का टाइमर',
+                            'timer-minutes': 'मिनट',
+                            'timer-set': 'सेट करें',
+                            // Filters
+                            'filter-title': 'रेसिपी फ़िल्टर करें',
+                            'filter-all-categories': 'सभी श्रेणियाँ',
+                            'filter-vegetarian': 'शाकाहारी',
+                            'filter-vegan': 'वीगन',
+                            'filter-gluten-free': 'ग्लूटेन-मुक्त',
+                            'filter-desserts': 'डेज़र्ट',
+                            // 'filter-main':
+                            'recipe-vegetarian': 'शाकाहारी',
+                            'recipe-italian': 'इटालियन',
+                            'recipe-breakfast': 'नाश्ता',
+                            'recipe-time': 'मिनट',
+                            'recipe1-title': 'मेडिटेरेनियन सलाद',
+                            'recipe1-desc': 'फेटा चीज़ और जैतून के साथ ताज़ा और स्वस्थ सलाद।',
+                            'recipe2-title': 'क्रीमी गार्लिक पास्ता',
+                            'recipe2-desc': 'लहसुन और परमेसन के साथ समृद्ध और क्रीमी पास्ता।',
+                            'recipe3-title': 'फ्लफी ब्लूबेरी पैनकेक',
+                            'recipe3-desc': 'ब्लूबेरी से भरे हल्के और फ्लफी पैनकेक।',
+                            // Seasonal Recipes
+                            'seasonal-recipes': 'मौसमी रेसिपी',
+                            'recipe-seasonal': 'मौसमी',
+                            'seasonal1-title': 'समर बेरी टार्ट',
+                            'seasonal1-desc': 'मौसमी जामुन के साथ हल्का और ताज़ा टार्ट।',
+                            'seasonal2-title': 'समर एवोकाडो सलाद',
+                            'seasonal2-desc': 'क्रीमी एवोकाडो के साथ ताज़ा गर्मियों की सब्जियाँ।',
+                            'seasonal3-title': 'ताज़ा नींबू पानी',
+                            'seasonal3-desc': 'ताज़ा नींबू और पुदीने के साथ गर्मियों का सही पेय।',
+                            // Featured Recipe
+                            'featured-badge': 'दिन की रेसिपी',
+                            'featured-title': 'मेडिटेरेनियन पावर बाउल',
+                            'featured-desc': 'यह जीवंत मेडिटेरेनियन बाउल ताज़ा सब्जियों, क्विनोआ और स्वादिष्ट नींबू-ताहिनी ड्रेसिंग से भरा हुआ है। यह स्वस्थ दोपहर के भोजन या रात के खाने के लिए स्वाद और पोषक तत्वों का सही संतुलन है।',
+                            'featured-chef': 'पेशेवर शेफ',
+                            'recipe-servings': '2 सर्विंग्स',
+                            'recipe-calories': '450 कैलोरी',
+                            'save-recipe': 'सहेजें',
+                            // Cooking Tips
+                            'cooking-tips': 'खाना पकाने के टिप्स और ट्रिक्स',
+                            'tip1-title': 'चाकू कौशल 101',
+                            'tip1-content': 'सब्जियों को तेज़ी से और सुरक्षित रूप से काटने के लिए उचित चाकू तकनीक सीखें। हमेशा अपनी उंगलियों को नीचे रखें और चाकू के साथ रॉकिंग गति का उपयोग करें।',
+                            'tip2-title': 'हर बार सही अंडे',
+                            'tip2-content': 'फ्लफी स्क्रैम्बल्ड अंडों के लिए, उन्हें धीमी आंच पर धीरे-धीरे पकाएं। पूरी तरह सेट होने से ठीक पहले आंच से हटाएं क्योंकि वे बची हुई गर्मी से पकते रहेंगे।',
+                            'tip3-title': 'ब्रेड बेकिंग रहस्य',
+                            'tip3-content': 'सही ब्रेड की कुंजी उचित सानना और प्रूफिंग है। सर्वोत्तम परिणामों के लिए अपने आटे को गर्म, हवा से मुक्त स्थान पर दोगुना होने तक उठने दें।',
+                            'learn-more': 'और जानें',
+                            // Blog Posts
+                            'blog-posts': 'हमारे ब्लॉग से',
+                            'blog-category': 'तकनीकें',
+                            'blog-date': '15 मई, 2023',
+                            'blog1-title': '10 आवश्यक रसोई उपकरण जो हर घरेलू रसोइए को चाहिए',
+                            'blog1-excerpt': 'इन जरूरी उपकरणों से अपनी रसोई को स्टॉक करें जो खाना पकाने को आसान और आनंददायक बनाएंगे...',
+                            'blog2-title': 'ताज़ा जड़ी-बूटियों और उनके उपयोग की अंतिम गाइड',
+                            'blog2-excerpt': 'जानें कि ताज़ा जड़ी-बूटियों को कैसे चुनें, स्टोर करें और अधिकतम स्वाद के लिए अपने खाना पकाने में शामिल करें...',
+                            'blog3-title': 'प्रो की तरह मील प्रेप कैसे करें: समय बचाएं और स्वस्थ खाएं',
+                            'blog3-excerpt': 'कुशल मील प्रेपिंग के लिए हमारी चरण-दर-चरण गाइड खोजें जो आपकी साप्ताहिक दिनचर्या को बदल देगी...',
+                            'read-more': 'और पढ़ें',
+                            // Trending
+                            'trending-now': 'अभी ट्रेंडिंग',
+                            'trending1-title': 'एवोकाडो टोस्ट',
+                            'trending1-desc': 'सरल लेकिन स्वादिष्ट नाश्ता विकल्प।',
+                            'trending2-title': 'स्मूदी बाउल',
+                            'trending2-desc': 'स्वस्थ और ताज़ा स्मूदी बाउल।',
+                            'trending3-title': 'एग्स बेनेडिक्ट',
+                            'trending3-desc': 'क्लासिक ब्रंच पसंदीदा।',
+                            'trending4-title': 'फ्लफी पैनकेक',
+                            'trending4-desc': 'सप्ताहांत के लिए सही नाश्ता।',
+                            'trending5-title': 'फ्रेंच टोस्ट',
+                            'trending5-desc': 'मीठा और संतोषजनक।',
+                            'trending6-title': 'चीज़ आमलेट',
+                            'trending6-desc': 'प्रोटीन से भरपूर नाश्ता।',
+                            // Categories
+                            'browse-categories': 'श्रेणियाँ ब्राउज़ करें',
+                            'category-fast-food': 'फास्ट फूड',
+                            'category-vegetarian': 'शाकाहारी',
+                            'category-desserts': 'डेज़र्ट',
+                            'category-drinks': 'पेय',
+                            'category-breakfast': 'नाश्ता',
+                            'category-lunch': 'दोपहर का भोजन',
+                            'category-dinner': 'रात का खाना',
+                            'category-recipes-count': 'रेसिपी',
+                            'recipes': 'रेसिपी',
+                            // Community
+                            'community-highlights': 'समुदाय हाइलाइट्स',
+                            'user1-title': 'पेशेवर शेफ',
+                            'user1-quote': '"समुदाय के साथ इटालियन व्यंजनों के लिए मेरा जुनून साझा करना!"',
+                            'user2-title': 'घरेलू बेकर',
+                            'user2-quote': '"साधारण सामग्री को स्वादिष्ट डेज़र्ट में बदलना!"',
+                            'user3-title': 'पोषण विशेषज्ञ',
+                            'user3-quote': '"आपके पसंदीदा व्यंजनों के स्वस्थ संस्करण बनाना!"',
+                            'achievement-top': 'शीर्ष योगदानकर्ता',
+                            'achievement-trending': 'ट्रेंडिंग',
+                            'achievement-rising': 'उभरता सितारा',
+                            'achievement-liked': 'सबसे पसंदीदा',
+                            'achievement-health': 'स्वास्थ्य विशेषज्ञ',
+                            'achievement-verified': 'सत्यापित',
+                            'view-profile': 'प्रोफाइल देखें',
+                            // Testimonials
+                            'testimonials-title': 'हमारे उपयोगकर्ता क्या कहते हैं',
+                            'testimonial1-title': 'घरेलू रसोइया',
+                            'testimonial1-quote': '"टेस्टीशेयर ने मेरे खाना पकाने को बदल दिया है! मुझे बहुत सारी अद्भुत रेसिपी मिलीं और साथी भोजन प्रेमियों से दोस्ती हुई।"',
+                            'testimonial2-title': 'पेशेवर शेफ',
+                            'testimonial2-quote': '"एक शेफ के रूप में, मैं टेस्टीशेयर पर रेसिपी की गुणवत्ता की सराहना करता हूँ। यह प्रेरणा और अपनी रचनाओं को साझा करने के लिए मेरा पसंदीदा मंच है।"',
+                            'testimonial3-title': 'फूड ब्लॉगर',
+                            'testimonial3-quote': '"टेस्टीशेयर पर समुदाय अद्भुत है। मुझे मिलने वाली प्रतिक्रिया के कारण मेरा दर्शक वर्ग बढ़ा और मेरी रेसिपी में सुधार हुआ।"',
+                            // Newsletter
+                            'newsletter-title': 'नई रेसिपी के साथ अपडेट रहें',
+                            'newsletter-subtitle': 'हमारे न्यूज़लेटर की सदस्यता लें और साप्ताहिक रेसिपी प्रेरणा अपने इनबॉक्स में प्राप्त करें।',
+                            'newsletter-placeholder': 'आपका ईमेल पता',
+                            'newsletter-subscribe': 'सदस्यता लें',
+                            // Footer
+                            'footer-description': 'खाना पकाने और रेसिपी साझा करने की खुशी के माध्यम से दुनिया भर के भोजन प्रेमियों को जोड़ना।',
+                            'footer-quick-links': 'त्वरित लिंक',
+                            'footer-categories': 'श्रेणियाँ',
+                            'footer-contact': 'हमसे संपर्क करें',
+                            'footer-address': '123 फूड स्ट्रीट, कुलिनरी सिटी',
+                            'footer-rights': 'सभी अधिकार सुरक्षित।',
+                            'footer-privacy': 'गोपनीयता नीति',
+                            'footer-terms': 'सेवा की शर्तें',
+
+                            'section-cooking-mode-title': 'आज आप कैसे खाना बनाना चाहते हैं?',
+                            'mode-by-equipment': 'उपकरण के अनुसार',
+                            'mode-by-diet': 'आहार के अनुसार',
+                            'mode-by-occasion': 'अवसर के अनुसार',
+
+                            // # Equipment
+                            'mode-equipment-instant-pot': 'इंस्टेंट पॉट',
+                            'mode-equipment-blender': 'ब्लेंडर',
+                            'mode-equipment-grill': 'ग्रिल',
+                            'mode-equipment-slow-cooker': 'स्लो कूकर',
+
+                            // # Diet
+                            'mode-diet-vegetarian': 'शाकाहारी',
+                            'mode-diet-vegan': 'वीगन',
+                            'mode-diet-keto': 'कीटो',
+                            'mode-diet-gluten-free': 'ग्लूटन-फ्री',
+
+                            // # Occasion
+                            'mode-occasion-party': 'पार्टी',
+                            'mode-occasion-date-night': 'डेट नाइट',
+                            'mode-occasion-brunch': 'ब्रंच',
+                            'mode-occasion-picnic': 'पिकनिक',
+
+                            //  Recipes count format (if needed)
+                            'recipes-count': '{count} रेसिपी',
+
+                        }
+                    };
+    
+
+        // Function to update language
+        function updateLanguage(lang) {
+            // Update dropdown text
+            const langText = lang === 'en' ? 'English' : 'हिंदी (Hindi)';
+            const languageToggle = document.getElementById('languageDropdown');
+            if (languageToggle) {
+                languageToggle.innerHTML = `<i class="fas fa-language me-1"></i> ${langText}`;
+            }
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        // Set initial language from localStorage or default to 'en'
+        const currentLang = localStorage.getItem('preferredLang') || 'en';
+        updateLanguage(currentLang);
+
+        // Add event listeners to language options
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.getAttribute('data-lang');
+                localStorage.setItem('preferredLang', lang);
+                updateLanguage(lang);
+            });
+        });
+
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+        }
+    });
+</script>{%endblock%}

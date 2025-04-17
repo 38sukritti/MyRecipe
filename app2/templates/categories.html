@@ -1,0 +1,813 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Recipes | FlavorShare</title>
+    <style>
+        :root {
+            --primary: #FF7F50; /* Coral/peach */
+            --primary-light: #FFA07A; /* Light salmon */
+            --secondary: #FF6347; /* Tomato */
+            --secondary-dark: #E25822; /* Darker orange-red */
+            --accent: #FFD700; /* Gold accent */
+            --cream: #FFF8F0; /* Creamy background */
+            --cream-dark: #FFEBD6; /* Slightly darker cream */
+            --text: #5A3E36; /* Warm brown for text */
+            --text-light: #8B7355; /* Lighter brown */
+           
+            --peach-primary: #FFD8C9;
+            --peach-secondary: #FFB7A1;
+            --peach-dark: #E67F6B;
+            --peach-darker: #D45D44;
+            --text-dark: #333333;
+            --text-light: #f8f8f8;
+            --transparent-white: rgba(255, 255, 255, 0.85);
+            --primary: #c41e3a;
+   
+    
+    /* Theme variables */
+    --bg: var(--light);
+    --card: white;
+    /* --nav: white; */
+    /* --footer: var(--secondary); */
+    
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+    --space-xxl: 4rem;
+    
+    /* Border radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-round: 50%;
+    
+    /* Shadows */
+    --shadow-sm: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-md: 0 8px 15px rgba(0,0,0,0.1);
+    --shadow-lg: 0 12px 24px rgba(0,0,0,0.15);
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+        
+        
+        }
+        
+        footer {
+            background: var(--peach-darker);
+            color: white;
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--peach-primary);
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-icon {
+            font-size: 1.5rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-icon:hover {
+            color: var(--peach-primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255,215,0,0.03) 0%, rgba(255,215,0,0.03) 90%);
+        }
+        
+        .party-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(233, 105, 44, 0.2);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        
+        .party-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1510626176961-4b57d4fbad03?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        .party-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--cream);
+            clip-path: polygon(0 80%, 100% 0, 100% 100%, 0% 100%);
+            z-index: 1;
+        }
+        
+        .party-header h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+            z-index: 2;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .party-header p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            position: relative;
+            animation: fadeInUp 1s ease;
+            z-index: 2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            padding: 0 20px;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent);
+            opacity: 0.8;
+            animation: fall linear infinite;
+            border-radius: 50%;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px 50px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-top: 1.5rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-dark);
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+            box-shadow: 0 2px 10px rgba(255, 99, 71, 0.4);
+        }
+        
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 35px;
+            margin-top: 2rem;
+        }
+        
+        .recipe-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(233, 105, 44, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 1px solid rgba(255, 127, 80, 0.1);
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(233, 105, 44, 0.2);
+        }
+        
+        .recipe-card:hover .recipe-image img {
+            transform: scale(1.15);
+        }
+        
+        .recipe-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 60%, rgba(255,215,0,0.1) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .recipe-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .recipe-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .recipe-content {
+            padding: 25px;
+            position: relative;
+            background: white;
+        }
+        
+        .recipe-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--secondary-dark);
+            font-weight: 600;
+        }
+        
+        .recipe-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .recipe-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .recipe-desc {
+            color: var(--text);
+            margin-bottom: 1.8rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .view-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 99, 71, 0.4);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        
+        .view-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 99, 71, 0.6);
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+        }
+        
+        .view-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .view-btn:hover::before {
+            left: 100%;
+        }
+        
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent);
+            color: var(--text);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .category-tab {
+            padding: 10px 25px;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            box-shadow: 0 3px 10px rgba(233, 105, 44, 0.1);
+            border: 1px solid rgba(255, 127, 80, 0.2);
+            color: var(--text-light);
+        }
+        
+        .category-tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(233, 105, 44, 0.2);
+            color: var(--secondary-dark);
+        }
+        
+        .category-tab.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(233, 105, 44, 0.3);
+            border-color: transparent;
+        }
+        
+        /* Floating decorative elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 127, 80, 0.1);
+            filter: blur(30px);
+            z-index: 0;
+        }
+        
+        .floating-element-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: -100px;
+            background: rgba(255, 215, 0, 0.1);
+        }
+        
+        .floating-element-2 {
+            width: 400px;
+            height: 400px;
+            bottom: 10%;
+            right: -150px;
+            background: rgba(255, 99, 71, 0.1);
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .party-header h1 {
+                font-size: 3rem;
+            }
+            
+            .recipes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .party-header {
+                height: 300px;
+            }
+            
+            .party-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .party-header p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 20px 40px;
+            }
+            
+            .category-tabs {
+                gap: 10px;
+            }
+            
+            .category-tab {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav style="background-color: #fff; padding: var(--space-md); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 100;">
+
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primary); text-decoration: none;">ZaykaBook</a>
+            <div style="display: flex; gap: var(--space-md);">
+                <a href="{%url 'app2:home'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Home</a>
+                <a href="{%url 'app2:recipes'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Recipes</a>
+                <a href="pizza.html" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Categories</a>
+                <a href="{%url 'app2:about'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">About</a>
+                <a href="{%url 'app2:contact'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Contact</a>
+                {% if user.is_authenticated %}
+                <span style="margin-top: 15px;">Welcome, {{ user.username }}!</span>
+                <a href="{%url 'app2:logout'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Logout</a>
+                {% else %}
+                <a href="{%url 'app1:signup'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Signup</a>
+                <a href="{%url 'app1:login'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Login</a>
+
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <!-- Floating decorative background elements -->
+    <div class="floating-element floating-element-1"></div>
+    <div class="floating-element floating-element-2"></div>
+    
+    <header class="party-header">
+        <!-- Generate confetti -->
+        <div id="confetti-container"></div>
+        
+        <h1>Different categories</h1>
+        <p>"A World of Flavors on Your Plate – Taste the Best from Every Corner of the Globe!" 🌍🍽</p>
+    </header>
+    
+    <div class="container">
+        <div class="section-title">
+            <h2>Global Bites</h2>
+        </div>
+        
+        <!-- <div class="category-tabs">
+            <div class="category-tab active">All</div>
+            <div class="category-tab">Appetizers</div>
+            <div class="category-tab">Drinks</div>
+            <div class="category-tab">Desserts</div>
+            <div class="category-tab">Snacks</div>
+            <div class="category-tab">Main Dishes</div>
+        </div> -->
+        
+        <div class="recipes-grid">
+            <!-- Recipe 1 -->
+            <div class="recipe-card">
+                <div class="badge">Popular</div>
+                <div class="recipe-image">
+                    <img src="{%static 'images/miniTacos.jpg' %}" alt="Mini Tacos">
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">Mediterranean</h3>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 25 mins</span>
+                        <span><i class="fas fa-utensils"></i> 12 servings</span>
+                    </div>
+                    <p class="recipe-desc">Fresh, Flavorful, and Full of Life – Savor the Essence of the Mediterranean! 🌿🍽</p>
+                    <button class="view-btn">View Recipe</button>
+                </div>
+            </div>
+            
+            <!-- Recipe 2 -->
+            <div class="recipe-card">
+                <div class="badge">New</div>
+                <div class="recipe-image">
+                    <img src="{%static 'images/american.jpg'%}" alt="Cocktail">
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">American</h3>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 10 mins</span>
+                        <span><i class="fas fa-utensils"></i> 8 servings</span>
+                    </div>
+                    <p class="recipe-desc">The ultimate American classic: a juicy burger paired with crispy fries — the perfect comfort food combo! 🍔🍟</p>
+                    <button class="view-btn">View Recipe</button>
+                </div>
+            </div>
+            
+            <!-- Recipe 3 -->
+            <div class="recipe-card">
+                <div class="recipe-image">
+                    <img src="{%static 'images/chinese.jpg'%}" alt="Cheesecake">
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">Chinese</h3>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 45 mins</span>
+                        <span><i class="fas fa-utensils"></i> 24 servings</span>
+                    </div>
+                    <p class="recipe-desc">A stir-fried delight with tender noodles, crisp vegetables, and bold flavors – the perfect taste of China in every bite! 🍜</p>
+                    <button class="view-btn">View Recipe</button>
+                </div>
+            </div>
+            
+            <!-- Recipe 4 -->
+            <div class="recipe-card">
+                <div class="badge">Quick</div>
+                <div class="recipe-image">
+                    <img src="{%static 'images/italian.jpg'%}" alt="Bruschetta">
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">Italian</h3>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 15 mins</span>
+                        <span><i class="fas fa-utensils"></i> 15 servings</span>
+                    </div>
+                    <p class="recipe-desc">Classic Italian appetizer with fresh tomatoes, basil, garlic on crispy toasted bread.</p>
+                    <button class="view-btn">View Recipe</button>
+                </div>
+            </div>
+            
+            <!-- Recipe 5 -->
+            <div class="recipe-card">
+                <div class="recipe-image">
+                    <img src="{%static 'images/mexican.jpg'%}" alt="Skewers">
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">Mexican</h3>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 20 mins</span>
+                        <span><i class="fas fa-utensils"></i> 20 servings</span>
+                    </div>
+                    <p class="recipe-desc">Simple yet elegant skewers with mozzarella, cherry tomatoes, and fresh basil.</p>
+                    <button class="view-btn">View Recipe</button>
+                </div>
+            </div>
+            
+            <!-- Recipe 6 -->
+            <div class="recipe-card">
+                <div class="badge">Vegan</div>
+                <div class="recipe-image">
+                    <img src="{%static 'images/indian.jpg'%}" alt="Guacamole">
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">Indian</h3>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 10 mins</span>
+                        <span><i class="fas fa-utensils"></i> 8 servings</span>
+                    </div>
+                    <p class="recipe-desc">Crispy, golden, and filled with spiced goodness – the perfect bite of India in every samosa! 🥟
+
+                    </p>
+                    <button class="view-btn">View Recipe</button>
+                </div>
+            </div>
+            
+            <!-- Recipe 7 -->
+            <div class="recipe-card">
+                <div class="recipe-image">
+                    <img src="{%static 'images/japan.jpg'%}" alt="Pizza">
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">Japan</h3>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 30 mins</span>
+                        <span><i class="fas fa-utensils"></i> 24 servings</span>
+                    </div>
+                    <p class="recipe-desc">Experience the art of Japan in every bite – fresh, flavorful sushi that’s as beautiful as it is delicious! 🍣</p>
+                    <button class="view-btn">View Recipe</button>
+                </div>
+            </div>
+            
+            <!-- Recipe 8 -->
+            <div class="recipe-card">
+                <div class="badge">Gluten-free</div>
+                <div class="recipe-image">
+                    <img src="{%static 'images/turkey.jpg'%}" alt="Chicken">
+                </div>
+                <div class="recipe-content">
+                    <h3 class="recipe-title">Turkey</h3>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 50 mins</span>
+                        <span><i class="fas fa-utensils"></i> 15 servings</span>
+                    </div>
+                    <p class="recipe-desc">Savor the smoky, tender goodness of Turkey – a deliciously spiced kebab that’s grilled to perfection! 🍢</p>
+                    <button class="view-btn">View Recipe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="footer-logo">ZaykaBook</div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Home</a>
+                <a href="#" class="footer-link">Services</a>
+                <a href="#" class="footer-link">Portfolio</a>
+                <a href="#" class="footer-link">About</a>
+                <a href="#" class="footer-link">Contact</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="footer-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="footer-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="footer-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="footer-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="footer-icon"><i class="fab fa-dribbble"></i></a>
+            </div>
+            <p class="copyright">© 2025 ZaykaBook . All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // Create confetti
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#FF7F50', '#FF6347', '#FFD700', '#FFA07A', '#E25822'];
+            
+            for (let i = 0; i < 80; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 12 + 6 + 'px';
+                confetti.style.height = Math.random() * 12 + 6 + 'px';
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                
+                // Random shapes
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '0';
+                    confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                }
+                
+                container.appendChild(confetti);
+            }
+        }
+        
+        // Tab functionality
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelector('.category-tab.active').classList.remove('active');
+                this.classList.add('active');
+                
+                // Animation for cards
+                document.querySelectorAll('.recipe-card').forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    setTimeout(() => {
+                        card.style.transition = `all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${index * 0.05}s`;
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 10);
+                });
+            });
+        });
+        
+        // View button functionality with ripple effect
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Ripple effect
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                ripple.style.width = ripple.style.height = Math.max(this.offsetWidth, this.offsetHeight) + 'px';
+                ripple.style.left = (e.pageX - this.getBoundingClientRect().left - ripple.offsetWidth/2 - window.scrollX) + 'px';
+                ripple.style.top = (e.pageY - this.getBoundingClientRect().top - ripple.offsetHeight/2 - window.scrollY) + 'px';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 1000);
+                
+                // In a real app, this would navigate to the recipe page
+                alert('This would open the full recipe in a real application!');
+            });
+        });
+        
+        // Initialize when page loads
+        window.onload = function() {
+            createConfetti();
+            
+            // Animate cards on initial load
+            document.querySelectorAll('.recipe-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 10);
+            });
+        };
+    </script>
+</body>
+</html>

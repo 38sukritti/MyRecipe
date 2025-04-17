@@ -1,0 +1,144 @@
+{% extends 'base3.html' %}
+
+{% block content %}
+<style>
+    .recipe-form-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    
+    .recipe-form-title {
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #f8f9fa;
+    }
+    
+    .recipe-form label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    .recipe-form input[type="text"],
+    .recipe-form input[type="number"],
+    .recipe-form textarea,
+    .recipe-form select {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1.25rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        transition: border-color 0.15s ease-in-out;
+    }
+    
+    .recipe-form input[type="text"]:focus,
+    .recipe-form input[type="number"]:focus,
+    .recipe-form textarea:focus,
+    .recipe-form select:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+    }
+    
+    .recipe-form textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    .recipe-form .helptext {
+        font-size: 0.85rem;
+        color: #6c757d;
+        display: block;
+        margin-top: -0.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .form-actions {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .btn i {
+        margin-right: 8px;
+    }
+    
+    .errorlist {
+        color: #dc3545;
+        padding-left: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* Style for file upload field */
+    .recipe-form .file-upload {
+        margin-bottom: 1.5rem;
+    }
+    
+    .recipe-form .file-upload label {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .recipe-form-container {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+        
+        .form-actions {
+            flex-direction: column;
+        }
+        
+        .btn {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+    }
+</style>
+
+<div class="recipe-form-container">
+    <h1 class="recipe-form-title">
+        <i class="fas fa-utensils me-2"></i>
+        {% if form.instance.pk %}Edit Recipe{% else %}Add New Recipe{% endif %}
+    </h1>
+    
+    <form method="post" enctype="multipart/form-data" class="recipe-form">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {% if field.help_text %}
+                    <span class="helptext">{{ field.help_text }}</span>
+                {% endif %}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="errorlist">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Save Recipe
+            </button>
+            <a href="{% url 'app2:recipe_list' %}" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

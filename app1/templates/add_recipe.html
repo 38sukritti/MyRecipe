@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/add_recipe.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container" id="form">
+    <h2 class="mt-4" id="tag">Add a New Recipe</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Title:</label>
+            <input type="text" class="form-control" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ingredients:</label>
+            <textarea class="form-control" name="ingredients" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Instructions:</label>
+            <textarea class="form-control" name="instructions" required></textarea>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success" id="btn">Add Recipe</button>
+    </form>
+</div>
+{% endblock %}

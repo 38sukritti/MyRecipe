@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .carousel-item img {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+    }
+    .recipe-card {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out;
+    }
+    .recipe-card:hover {
+        transform: scale(1.05);
+    }
+    .recipe-img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-bottom: 5px solid #ff6600;
+    }
+    .recipe-content {
+        padding: 15px;
+        text-align: center;
+    }
+</style>
+<!-- Carousel Section -->
+<div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'images/breakfast2.jpg' %}" class="d-block w-100" alt="Dinner Image 1">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/breakfast3.jpg' %}" class="d-block w-100" alt="Dinner Image 2">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/breakfast4.jpg' %}" class="d-block w-100" alt="Dinner Image 3">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#recipeCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#recipeCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!-- Dinner Recipes Section -->
+<div class="container mt-5">
+    <h2 class="text-center">Flavours of Dinner</h2>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="recipe-card">
+                <img src="{% static 'images/d1.webp' %}" class="recipe-img" alt="Asian Cuisine">
+                <div class="recipe-content">
+                    <h5>Asian Cuisine</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="recipe-card">
+                <img src="{% static 'images/d2.webp' %}" class="recipe-img" alt="Barbeque">
+                <div class="recipe-content">
+                    <h5>Barbeque</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="recipe-card">
+                <img src="{% static 'images/d3.jpeg' %}" class="recipe-img" alt="Punjabi Cuisine">
+                <div class="recipe-content">
+                    <h5>Punjabi Cuisine</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="recipe-card">
+                <img src="{% static 'images/sic.jpeg' %}" class="recipe-img" alt="South Indian Cuisine">
+                <div class="recipe-content">
+                    <h5>South Indian Cuisine</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="recipe-card">
+                <img src="{% static 'images/idli sambhar .avif' %}" class="recipe-img" alt="Idli Sambhar">
+                <div class="recipe-content">
+                    <h5>Idli Sambhar</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="recipe-card">
+                <img src="{% static 'images/dosa.jpg' %}" class="recipe-img" alt="Dosa">
+                <div class="recipe-content">
+                    <h5>Dosa</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

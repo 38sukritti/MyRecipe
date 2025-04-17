@@ -1,0 +1,211 @@
+body {
+    background-image: url('../images/myrecipe.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Full screen height */
+    margin: 0;
+}
+#tag{
+    font-size: 45px;
+    font-weight: bold;
+}
+#btn{
+    background-color: brown;
+    border-color: brown;
+
+}
+
+recipe.css
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Hero Banner */
+.banner-container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+.banner-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    filter: brightness(70%);
+}
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.highlight {
+    color: #ff5722;
+}
+.btn-discover {
+    display: inline-block;
+    background: #ff5722;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+.btn-discover:hover {
+    background: #ff7043;
+    transform: scale(1.05);
+}
+
+/* Recipes Section */
+.recipe-content h3 {
+    font-size: 16px; 
+}
+.section-title {
+    margin: 40px 0;
+    font-size: 24px;
+}
+.recipes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+.recipe-card {
+    width: 320px;
+    height: 420px;
+    margin: 20px;
+    display: inline-block;
+    font-size: 14px;
+    perspective: 1000px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.recipe-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+.recipe-card.flipped .recipe-inner {
+    transform: rotateY(180deg);
+}
+.recipe-front, .recipe-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.recipe-back {
+    transform: rotateY(180deg);
+    overflow-y: auto;
+}
+.recipe-front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.recipe-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+.recipe-content {
+    padding: 15px;
+    text-align: center;
+}
+.recipe-description {
+    font-size: 13px; 
+}
+.recipe-card:hover {
+    transform: scale(1.05);
+}
+.rating {
+    color: gold;
+    margin: 5px 0;
+    font-size: 14px;
+}
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 5px;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
+.discover-btn {
+    background: #ff5722;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 12px;
+}
+.discover-btn:hover {
+    background: #ff7043;
+}
+.fav-btn {
+    background: none;
+    border: none;
+    color: #ff3d00;
+    font-size: 20px;
+    cursor: pointer;
+}
+.save-btn {
+    background: #f4b400;
+    color: white;
+}
+.recipe-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.recipe-back p {
+    font-size: 12px; 
+    line-height: 1.3; 
+}
+
+.recipe-back a {
+    color: #ff5722;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 10px;
+}
+.recipe-back a:hover {
+    text-decoration: underline;
+}
+.close-btn {
+    margin-top: 10px;
+    background: #ff3d00;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.close-btn:hover {
+    background: #d32f2f;
+}

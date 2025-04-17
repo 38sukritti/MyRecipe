@@ -1,0 +1,82 @@
+body {
+    background-image: url('../images/login.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Login box */
+#form {
+    margin: 30px auto;
+    height: 400px;
+    width: 300px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.8s ease-in-out;
+    background: linear-gradient(to bottom, #F5DEB3, #E6C7A0);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form heading */
+#tag {
+    text-align: center;
+    margin-top: 60px;
+    font-weight: bolder;
+    font-size: 60px;
+    color: brown;
+}
+
+/* Input field icons (if any) */
+.input-group-text {
+    background: #8B0000;
+    color: white;
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+    font-weight: bolder;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(to right, #8B0000, #A52A2A);
+    color: azure;
+    transition: 0.3s ease-in-out;
+}
+
+/* Button hover */
+.btn:hover {
+    background: linear-gradient(to right, #A52A2A, #D2691E);
+    transform: scale(1.05);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Forgot Password */
+p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+p > a {
+    text-decoration: none;
+    color: #8B0000;
+    font-weight: bold;
+}
+
+/* Remove duplicate selector */

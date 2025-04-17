@@ -1,0 +1,359 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maggi Noodles Recipe | Quick & Delicious</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{%static 'css/maggie.css'%}">
+    <style>
+        .recipe-header {
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                url("{%static 'images/maggie.avif'%}") center/cover;
+    display: flex;
+    align-items: flex-end;
+    color: white;
+    position: relative;
+    margin-bottom: var(--space-xxl);
+    animation: fadeIn 1s ease;
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav style="background-color: #fff; padding: var(--space-md); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 100;">
+
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primary); text-decoration: none;">ZaykaBook</a>
+            <div style="display: flex; gap: var(--space-md);">
+                <a href="{%url 'app2:home'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Home</a>
+                <a href="{%url 'app2:recipes'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Recipes</a>
+                <a href="{%url 'app2:category'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Categories</a>
+                <a href="{%url 'app2:about'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">About</a>
+                <a href="{%url 'app2:contact'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Contact</a>
+                {% if user.is_authenticated %}
+                <span style="margin-top: 15px;">Welcome, {{ user.username }}!</span>
+                <a href="{%url 'app2:logout'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Logout</a>
+                {% else %}
+                <a href="{%url 'app1:signup'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Signup</a>
+                <a href="{%url 'app1:login'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Login</a>
+
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Recipe Header -->
+    <header class="recipe-header">
+        <div class="recipe-title">
+            <h1>Maggi Noodles</h1>
+            <div class="recipe-meta">
+                <span class="meta-item"><i class="fas fa-clock"></i> 5 mins prep</span>
+                <span class="meta-item"><i class="fas fa-fire"></i> 2 mins cook</span>
+                <span class="meta-item"><i class="fas fa-user-friends"></i> 1 serving</span>
+                <span class="meta-item"><i class="fas fa-star"></i> 4.7 (1.2k reviews)</span>
+            </div>
+            <p class="recipe-description">Quick and delicious instant noodles that can be prepared in just 2 minutes with hot water. Perfect for students, busy professionals, or anyone craving a tasty snack.</p>
+        </div>
+    </header>
+
+    <!-- Recipe Container -->
+    <div class="recipe-container">
+        <!-- Main Recipe Content -->
+        <main class="recipe-main">
+            <!-- Recipe Video -->
+            <section class="recipe-video">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/7ZoxZcXM_wc?si=WvFzbH0yFtoAtS1p" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </section>
+
+            <!-- Ingredients Section -->
+            <section class="recipe-section">
+                <h2>Ingredients</h2>
+                <ul class="ingredients-list">
+                    <li class="ingredient-item">
+                        <input type="checkbox" class="ingredient-checkbox" id="ingredient1">
+                        <label for="ingredient1" class="ingredient-label">1 packet Maggi noodles (70g)</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" class="ingredient-checkbox" id="ingredient2">
+                        <label for="ingredient2" class="ingredient-label">1.5 cups water (350ml)</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" class="ingredient-checkbox" id="ingredient3">
+                        <label for="ingredient3" class="ingredient-label">Maggi tastemaker (included in packet)</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" class="ingredient-checkbox" id="ingredient4">
+                        <label for="ingredient4" class="ingredient-label">1 tsp butter or oil (optional)</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" class="ingredient-checkbox" id="ingredient5">
+                        <label for="ingredient5" class="ingredient-label">¼ cup chopped vegetables (optional)</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" class="ingredient-checkbox" id="ingredient6">
+                        <label for="ingredient6" class="ingredient-label">Pinch of red chili flakes (optional)</label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Instructions Section -->
+            <section class="recipe-section">
+                <h2>Step-by-Step Instructions</h2>
+                <ol class="instructions-list">
+                    <li class="instruction-item">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <p>Boil 1.5 cups of water in a pan or kettle. For better flavor, you can use vegetable or chicken stock instead of plain water.</p>
+                            <div class="step-image">
+                                <img src="https://images.unsplash.com/photo-1588013273468-315fd88ea34c" alt="Boiling water">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <p>Once the water is boiling, add the Maggi noodles and the included tastemaker. If you're adding vegetables, add them now.</p>
+                            <div class="step-image">
+                                <img src="https://images.unsplash.com/photo-1559847844-5315695dadae" alt="Adding noodles to water">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <p>Cook for 2 minutes, stirring occasionally. If you prefer softer noodles, cook for an additional 30 seconds to 1 minute.</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <p>Turn off the heat and add a teaspoon of butter or oil if desired. This adds richness to the noodles.</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <p>Transfer to a bowl, garnish with chili flakes if using, and serve immediately. Enjoy your hot, delicious Maggi noodles!</p>
+                            <div class="step-image">
+                                <img src="https://images.unsplash.com/photo-1574894709920-11b28e7367e3" alt="Finished Maggi noodles">
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- Recipe Actions -->
+            <div class="recipe-actions">
+                <button class="action-btn print-btn"><i class="fas fa-print"></i> Print Recipe</button>
+                <button class="action-btn save-btn"><i class="fas fa-bookmark"></i> Save Recipe</button>
+                <button class="action-btn share-btn"><i class="fas fa-share-alt"></i> Share</button>
+            </div>
+        </main>
+
+        <!-- Recipe Sidebar -->
+        <aside class="recipe-sidebar">
+            <!-- Nutrition Facts -->
+            <section class="nutrition-facts">
+                <h2>Nutrition Facts</h2>
+                <p>Per serving (1 packet prepared)</p>
+                <table class="nutrition-table">
+                    <tr>
+                        <th>Calories</th>
+                        <td>290kcal</td>
+                    </tr>
+                    <tr>
+                        <th>Total Fat</th>
+                        <td>10g</td>
+                    </tr>
+                    <tr>
+                        <th>Saturated Fat</th>
+                        <td>4.5g</td>
+                    </tr>
+                    <tr>
+                        <th>Carbohydrates</th>
+                        <td>42g</td>
+                    </tr>
+                    <tr>
+                        <th>Sugar</th>
+                        <td>2g</td>
+                    </tr>
+                    <tr>
+                        <th>Protein</th>
+                        <td>8g</td>
+                    </tr>
+                    <tr>
+                        <th>Sodium</th>
+                        <td>1140mg</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Recipe Tips -->
+            <section class="recipe-tips">
+                <h2>Chef's Tips</h2>
+                <ul class="tips-list">
+                    <li class="tip-item">
+                        <span class="tip-icon"><i class="fas fa-lightbulb"></i></span>
+                        <span>For creamier noodles, add a splash of milk at the end of cooking.</span>
+                    </li>
+                    <li class="tip-item">
+                        <span class="tip-icon"><i class="fas fa-lightbulb"></i></span>
+                        <span>Try adding an egg for extra protein - crack it into the boiling noodles and stir.</span>
+                    </li>
+                    <li class="tip-item">
+                        <span class="tip-icon"><i class="fas fa-lightbulb"></i></span>
+                        <span>For a spicy kick, add a few drops of hot sauce or some chopped green chilies.</span>
+                    </li>
+                    <li class="tip-item">
+                        <span class="tip-icon"><i class="fas fa-lightbulb"></i></span>
+                        <span>Leftover cooked chicken or shrimp makes a great addition for a more substantial meal.</span>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+    </div>
+
+    <!-- Similar Recipes -->
+    <section class="similar-recipes">
+        <h2>You Might Also Like</h2>
+        <div class="similar-grid">
+            <article class="similar-card">
+                <div class="similar-img" style="background-image: url('https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80');"></div>
+                <div class="similar-content">
+                    <h3>Chicken Biryani</h3>
+                    <div class="similar-meta">
+                        <span><i class="fas fa-clock"></i> 90 min</span>
+                        <span><i class="fas fa-pepper-hot"></i> Medium</span>
+                    </div>
+                </div>
+            </article>
+            <article class="similar-card">
+                <div class="similar-img" style="background-image: url('https://images.unsplash.com/photo-1518779578993-ec3579fee39f?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80');"></div>
+                <div class="similar-content">
+                    <h3>Avocado Toast</h3>
+                    <div class="similar-meta">
+                        <span><i class="fas fa-clock"></i> 15 min</span>
+                        <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                    </div>
+                </div>
+            </article>
+            <article class="similar-card">
+                <div class="similar-img" style="background-image: url('https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80');"></div>
+                <div class="similar-content">
+                    <h3>Buddha Bowl</h3>
+                    <div class="similar-meta">
+                        <span><i class="fas fa-clock"></i> 25 min</span>
+                        <span><i class="fas fa-seedling"></i> Vegan</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Floating Action Button -->
+    <div class="fab" id="fab">
+        <i class="fas fa-plus"></i>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Back to top button functionality
+        const backToTop = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Floating action button functionality
+        const fab = document.getElementById('fab');
+        fab.addEventListener('click', () => {
+            showNotification('Create new recipe or share your own!');
+        });
+        
+        // Print button functionality
+        const printBtn = document.querySelector('.print-btn');
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+        
+        // Save button functionality
+        const saveBtn = document.querySelector('.save-btn');
+        saveBtn.addEventListener('click', () => {
+            saveBtn.innerHTML = '<i class="fas fa-check"></i> Saved';
+            setTimeout(() => {
+                saveBtn.innerHTML = '<i class="fas fa-bookmark"></i> Save Recipe';
+            }, 2000);
+            showNotification('Recipe saved to your cookbook!');
+        });
+        
+        // Share button functionality
+        const shareBtn = document.querySelector('.share-btn');
+        shareBtn.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Maggi Noodles Recipe',
+                    text: 'Check out this delicious Maggi Noodles recipe!',
+                    url: window.location.href
+                }).catch(err => {
+                    showNotification('Could not share at this time');
+                });
+            } else {
+                showNotification('Web Share API not supported in your browser');
+            }
+        });
+        
+        // Show notification function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <i class="fas fa-info-circle"></i> ${message}
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeIn 0.3s ease reverse';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // Animate elements on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.recipe-section, .nutrition-facts, .recipe-tips, .similar-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.animation = 'fadeIn 0.8s ease forwards';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>

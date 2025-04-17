@@ -1,0 +1,459 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Cheesecake Bites | FlavorShare</title>
+    <link rel="stylesheet" href="{%static 'css/cheesecake.css'%}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <header class="recipe-header">
+        <div class="container">
+            <h1>Mini Cheesecake Bites</h1>
+            <div class="recipe-meta">
+                <div class="meta-item">
+                    <i class="far fa-clock"></i>
+                    <span>45 mins</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-utensils"></i>
+                    <span>24 servings</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-utensil-spoon"></i>
+                    <span>Medium</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-fire"></i>
+                    <span>220 cal/serving</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="recipe-container">
+            <div class="recipe-content">
+                <div class="recipe-intro">
+                    <p>These Mini Cheesecake Bites are the perfect party dessert! Creamy vanilla cheesecake in perfect individual portions with a delicious berry topping. They're easy to make, look impressive, and are always a crowd favorite. The recipe includes options for different toppings and variations to suit your taste.</p>
+                </div>
+                
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/wNLxiRcNsPg?si=nC_YoZmh3f5X_4Ja" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                
+                <h2 class="section-title">Ingredients</h2>
+                <div class="ingredients-list">
+                    <div class="ingredient-group">
+                        <h3>For the crust:</h3>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing1">
+                            <label for="ing1">1 1/2 cups graham cracker crumbs (about 12 full sheets)</label>
+                        </div>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing2">
+                            <label for="ing2">1/4 cup granulated sugar</label>
+                        </div>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing3">
+                            <label for="ing3">6 tablespoons unsalted butter, melted</label>
+                        </div>
+                    </div>
+                    
+                    <div class="ingredient-group">
+                        <h3>For the cheesecake filling:</h3>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing4">
+                            <label for="ing4">16 oz (2 packages) cream cheese, softened to room temperature</label>
+                        </div>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing5">
+                            <label for="ing5">2/3 cup granulated sugar</label>
+                        </div>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing6">
+                            <label for="ing6">2 large eggs, room temperature</label>
+                        </div>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing7">
+                            <label for="ing7">1 teaspoon pure vanilla extract</label>
+                        </div>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing8">
+                            <label for="ing8">1/2 cup full-fat sour cream, room temperature</label>
+                        </div>
+                    </div>
+                    
+                    <div class="ingredient-group">
+                        <h3>For the berry topping:</h3>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing9">
+                            <label for="ing9">2 cups mixed berries (strawberries, blueberries, raspberries)</label>
+                        </div>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing10">
+                            <label for="ing10">1/4 cup granulated sugar</label>
+                        </div>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing11">
+                            <label for="ing11">1 tablespoon fresh lemon juice</label>
+                        </div>
+                        <div class="ingredient">
+                            <input type="checkbox" id="ing12">
+                            <label for="ing12">1 teaspoon cornstarch mixed with 1 tablespoon water</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="instructions-toggle">
+                    <div class="toggle-option active" data-target="instructions-list">Standard View</div>
+                    <div class="toggle-option" data-target="step-by-step-container">Step-by-Step</div>
+                </div>
+                
+                <h2 class="section-title">Instructions</h2>
+                
+                <div class="instructions-container">
+                    <div class="instructions-list active">
+                        <div class="instruction">
+                            <div>
+                                <h3>Prepare the crust:</h3>
+                                <p>Preheat oven to 325°F (165°C). Line a 24-cup mini muffin tin with paper liners. In a medium bowl, mix graham cracker crumbs, sugar, and melted butter until combined. The mixture should hold together when pressed.</p>
+                                <p>Press about 1 tablespoon of the mixture firmly into the bottom of each muffin cup. Use the back of a spoon or a small measuring cup to press it down evenly. Bake for 5 minutes, then remove from oven and let cool slightly while you prepare the filling.</p>
+                                <div class="instruction-image">
+                                    <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Preparing crust">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction">
+                            <div>
+                                <h3>Make the filling:</h3>
+                                <p>In a large bowl using a hand mixer or stand mixer fitted with a paddle attachment, beat the cream cheese on medium-high speed until completely smooth, about 2 minutes. Add the sugar and beat until combined, about 1 minute.</p>
+                                <p>Add the eggs one at a time, beating well after each addition and scraping down the sides of the bowl as needed. Mix in the vanilla extract and sour cream until just combined. Be careful not to overmix - the filling should be smooth but not full of air bubbles.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction">
+                            <div>
+                                <h3>Bake the cheesecakes:</h3>
+                                <p>Spoon the cheesecake filling over the crusts, filling each cup almost to the top. Leave about 1/8 inch space at the top. Tap the pan gently on the counter to release any air bubbles.</p>
+                                <p>Bake for 15-18 minutes, until the centers are just set. They should jiggle slightly when shaken but not be liquid in the center. Remove from oven and let cool completely in the pan on a wire rack, then refrigerate for at least 2 hours or overnight.</p>
+                                <div class="instruction-image">
+                                    <img src="https://images.unsplash.com/photo-1562440499-64c9a111f713?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Baked cheesecakes">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction">
+                            <div>
+                                <h3>Prepare the topping:</h3>
+                                <p>In a small saucepan, combine berries, sugar, and lemon juice. Cook over medium heat, stirring occasionally, until berries release their juices and begin to break down, about 5 minutes.</p>
+                                <p>Add the cornstarch mixture and cook, stirring constantly, until the mixture thickens to a syrup consistency, about 2 more minutes. Remove from heat and let cool to room temperature. The sauce will thicken more as it cools.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction">
+                            <div>
+                                <h3>Assemble and serve:</h3>
+                                <p>Carefully remove the cheesecakes from the muffin tin by gently lifting the paper liners. Top each cheesecake bite with about 1 teaspoon of the berry topping. For a neater presentation, you can pipe the topping using a small piping bag or ziplock bag with the corner snipped off.</p>
+                                <p>Serve chilled. Store leftovers in an airtight container in the refrigerator for up to 3 days. The cheesecakes can be made up to 2 days in advance - just add the topping right before serving.</p>
+                                <div class="instruction-image">
+                                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Finished cheesecakes">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-by-step-container">
+                        <div class="step-view active" data-step="1">
+                            <h3>Step 1: Prepare the Crust</h3>
+                            <p>Preheat your oven to 325°F (165°C). Line a 24-cup mini muffin tin with paper liners. This makes removal much easier and creates a neat presentation.</p>
+                            <div class="instruction-image">
+                                <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Preparing crust">
+                            </div>
+                            <p>In a medium bowl, combine the graham cracker crumbs and sugar. Pour in the melted butter and mix until all the crumbs are evenly moistened. The mixture should hold together when pressed.</p>
+                            <div class="step-navigation">
+                                <button class="step-btn" disabled>
+                                    <i class="fas fa-arrow-left"></i> Previous
+                                </button>
+                                <button class="step-btn next-step">
+                                    Next <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="step-view" data-step="2">
+                            <h3>Step 2: Form the Crust Bases</h3>
+                            <p>Press about 1 tablespoon of the crumb mixture firmly into the bottom of each muffin cup. Use the back of a spoon or a small measuring cup to press it down evenly and compactly.</p>
+                            <div class="instruction-image">
+                                <img src="https://images.unsplash.com/photo-1562440499-64c9a111f713?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Forming crust">
+                            </div>
+                            <p>Bake the crusts for 5 minutes, then remove from oven and let cool slightly while you prepare the filling. This pre-baking helps the crust stay crisp.</p>
+                            <div class="step-navigation">
+                                <button class="step-btn prev-step">
+                                    <i class="fas fa-arrow-left"></i> Previous
+                                </button>
+                                <button class="step-btn next-step">
+                                    Next <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Additional steps would continue here -->
+                    </div>
+                </div>
+                
+                <div class="recipe-notes">
+                    <h2 class="section-title">Recipe Notes & Variations</h2>
+                    <ul>
+                        <li><strong>Make Ahead:</strong> The cheesecakes can be made up to 2 days in advance. Store without topping in an airtight container in the refrigerator, then add topping just before serving.</li>
+                        <li><strong>Different Crusts:</strong> Try using crushed vanilla wafers, chocolate cookies, or shortbread instead of graham crackers.</li>
+                        <li><strong>Flavor Variations:</strong> Add 1 tablespoon lemon zest to the filling for lemon cheesecake, or swirl in some chocolate sauce before baking.</li>
+                        <li><strong>Topping Ideas:</strong> Instead of berry topping, try caramel sauce, chocolate ganache, or simply fresh fruit.</li>
+                        <li><strong>Storage:</strong> Store covered in the refrigerator for up to 3 days. These don't freeze well due to the dairy content.</li>
+                    </ul>
+                </div>
+                
+                <div class="similar-recipes">
+                    <h2 class="section-title">You Might Also Like</h2>
+                    <div class="similar-grid">
+                        <div class="similar-card">
+                            <div class="similar-image">
+                                <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Mini Desserts">
+                            </div>
+                            <div class="similar-content">
+                                <h3>Mini Chocolate Tarts</h3>
+                                <div class="similar-meta">
+                                    <span><i class="far fa-clock"></i> 35 mins</span>
+                                    <span>12 servings</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="similar-card">
+                            <div class="similar-image">
+                                <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Berry Dessert">
+                            </div>
+                            <div class="similar-content">
+                                <h3>Berry Parfait Cups</h3>
+                                <div class="similar-meta">
+                                    <span><i class="far fa-clock"></i> 20 mins</span>
+                                    <span>8 servings</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="similar-card">
+                            <div class="similar-image">
+                                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Party Food">
+                            </div>
+                            <div class="similar-content">
+                                <h3>Mini Fruit Pizzas</h3>
+                                <div class="similar-meta">
+                                    <span><i class="far fa-clock"></i> 40 mins</span>
+                                    <span>24 servings</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recipe-sidebar">
+                <div class="sidebar-card">
+                    <h2 class="section-title">Nutrition Information</h2>
+                    <p style="margin-bottom: 15px; color: var(--text-light);">Per serving (1 cheesecake bite):</p>
+                    <div class="nutrition-grid">
+                        <div class="nutrition-item">
+                            <span>Calories</span>
+                            <span>220 kcal</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span>Total Fat</span>
+                            <span>14g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span>Saturated Fat</span>
+                            <span>8g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span>Cholesterol</span>
+                            <span>55mg</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span>Sodium</span>
+                            <span>150mg</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span>Total Carbs</span>
+                            <span>21g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span>Dietary Fiber</span>
+                            <span>0.5g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span>Sugars</span>
+                            <span>16g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span>Protein</span>
+                            <span>3g</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h2 class="section-title">Tools Needed</h2>
+                    <ul class="tools-list">
+                        <li class="tool-item">
+                            <i class="fas fa-utensils"></i>
+                            <span>24-cup mini muffin tin</span>
+                        </li>
+                        <li class="tool-item">
+                            <i class="fas fa-blender"></i>
+                            <span>Electric mixer</span>
+                        </li>
+                        <li class="tool-item">
+                            <i class="fas fa-spoon"></i>
+                            <span>Mixing bowls</span>
+                        </li>
+                        <li class="tool-item">
+                            <i class="fas fa-weight"></i>
+                            <span>Measuring cups/spoons</span>
+                        </li>
+                        <li class="tool-item">
+                            <i class="fas fa-mortar-pestle"></i>
+                            <span>Small saucepan</span>
+                        </li>
+                        <li class="tool-item">
+                            <i class="fas fa-ice-cream"></i>
+                            <span>Spatula</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h2 class="section-title">Recipe Tags</h2>
+                    <div class="tags">
+                        <span class="tag">Dessert</span>
+                        <span class="tag">Cheesecake</span>
+                        <span class="tag">Party Food</span>
+                        <span class="tag">Mini</span>
+                        <span class="tag">Berries</span>
+                        <span class="tag">No Bake</span>
+                        <span class="tag">Cream Cheese</span>
+                        <span class="tag">Individual</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Toggle between standard and step-by-step views
+        document.querySelectorAll('.toggle-option').forEach(option => {
+            option.addEventListener('click', function () {
+                // Remove active class from all options
+                document.querySelectorAll('.toggle-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+    
+                // Add active class to clicked option
+                this.classList.add('active');
+    
+                // Get target container class from data attribute
+                const targetClass = this.dataset.target;
+    
+                // Hide all instruction containers
+                document.querySelectorAll('.instructions-list, .step-by-step-container').forEach(container => {
+                    container.classList.remove('active');
+                });
+    
+                // Show target container (fix: use class selector correctly)
+                document.querySelector(`.${targetClass}`).classList.add('active');
+            });
+        });
+    
+        // Step navigation for step-by-step view
+        let currentStep = 1;
+        const totalSteps = 5; // Update this based on actual steps
+    
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.step-view').forEach(view => {
+                view.classList.remove('active');
+            });
+    
+            // Show current step (fix: template string syntax)
+            const stepElement = document.querySelector(`.step-view[data-step="${step}"]`);
+            if (stepElement) stepElement.classList.add('active');
+    
+            currentStep = step;
+    
+            // Enable/disable buttons
+            document.querySelectorAll('.prev-step').forEach(btn => {
+                btn.disabled = step === 1;
+            });
+    
+            document.querySelectorAll('.next-step').forEach(btn => {
+                btn.disabled = step === totalSteps;
+            });
+    
+            // Update progress text
+            document.querySelectorAll('.step-progress').forEach(el => {
+                el.textContent = `Step ${step} of ${totalSteps}`;
+            });
+        }
+    
+        document.querySelectorAll('.next-step').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (currentStep < totalSteps) showStep(currentStep + 1);
+            });
+        });
+    
+        document.querySelectorAll('.prev-step').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (currentStep > 1) showStep(currentStep - 1);
+            });
+        });
+    
+        // Initialize step view
+        showStep(1);
+    
+        // Toggle ingredient checkboxes
+        document.querySelectorAll('.ingredient label').forEach(label => {
+            label.addEventListener('click', function () {
+                const checkbox = this.previousElementSibling;
+                checkbox.checked = !checkbox.checked;
+    
+                // Apply styles
+                this.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
+                this.style.opacity = checkbox.checked ? '0.7' : '1';
+            });
+        });
+    
+        // Add animation to elements when they come into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.instruction, .sidebar-card, .video-container');
+    
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+    
+                if (elementPosition < windowHeight - 100) {
+                    element.classList.add('fade-in');
+                }
+            });
+        };
+    
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+    
+</body>
+</html>

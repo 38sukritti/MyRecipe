@@ -1,0 +1,269 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentic Margherita Pizza Recipe | Italian Cuisine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ <link rel="stylesheet" href="{%static 'css/pizza.css'%}">
+ 
+</head>
+<body>
+    <!-- Navigation -->
+    <nav style="background-color: #fff; padding: var(--space-md); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 100;">
+
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primary); text-decoration: none;">ZaykaBook</a>
+            <div style="display: flex; gap: var(--space-md);">
+                <a href="{%url 'app2:home'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Home</a>
+                <a href="{%url 'app2:recipes'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Recipes</a>
+                <a href="{%url 'app2:category'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Categories</a>
+                <a href="{%url 'app2:about'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">About</a>
+                <a href="{%url 'app2:contact'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Contact</a>
+                {% if user.is_authenticated %}
+                <span style="margin-top: 15px;">Welcome, {{ user.username }}!</span>
+                <a href="{%url 'app2:logout'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Logout</a>
+                {% else %}
+                <a href="{%url 'app1:signup'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Signup</a>
+                <a href="{%url 'app1:login'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Login</a>
+
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Recipe Header -->
+    <header class="recipe-header">
+        <div class="header-content">
+            <h1>Authentic Margherita Pizza</h1>
+            <div class="recipe-meta">
+                <span class="meta-item"><i class="fas fa-clock"></i> 30 mins</span>
+                <span class="meta-item"><i class="fas fa-utensils"></i> 2 servings</span>
+                <span class="meta-item"><i class="fas fa-star"></i> 4.9 (2.4k reviews)</span>
+                <span class="meta-item"><i class="fas fa-flag"></i> Italian</span>
+            </div>
+            <p class="description">
+                The classic Neapolitan pizza featuring San Marzano tomatoes, fresh mozzarella, basil, and extra-virgin olive oil. 
+                Simple, fresh, and delicious!
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <main>
+            <!-- Video -->
+            <section class="video-container">
+                <iframe src="https://www.youtube.com/embed/1-SJGQ2HLp8" title="Margherita Pizza Recipe" allowfullscreen></iframe>
+            </section>
+
+            <!-- Ingredients -->
+            <section class="ingredients">
+                <h2>Ingredients</h2>
+                <ul class="ingredient-list">
+                    <li class="ingredient">
+                        <input type="checkbox" id="ingredient1">
+                        <label for="ingredient1">1 pizza dough (250g)</label>
+                    </li>
+                    <li class="ingredient">
+                        <input type="checkbox" id="ingredient2">
+                        <label for="ingredient2">1/2 cup San Marzano tomato sauce</label>
+                    </li>
+                    <li class="ingredient">
+                        <input type="checkbox" id="ingredient3">
+                        <label for="ingredient3">125g fresh mozzarella di bufala</label>
+                    </li>
+                    <li class="ingredient">
+                        <input type="checkbox" id="ingredient4">
+                        <label for="ingredient4">Fresh basil leaves</label>
+                    </li>
+                    <li class="ingredient">
+                        <input type="checkbox" id="ingredient5">
+                        <label for="ingredient5">Extra-virgin olive oil</label>
+                    </li>
+                    <li class="ingredient">
+                        <input type="checkbox" id="ingredient6">
+                        <label for="ingredient6">Sea salt to taste</label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Instructions -->
+            <section class="instructions">
+                <h2>Instructions</h2>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Prepare the Dough</h3>
+                        <p>Let the pizza dough rest at room temperature for 1-2 hours if refrigerated. Preheat your oven to 500°F (260°C) with a pizza stone inside for at least 30 minutes.</p>
+                        <div class="step-image">
+                            <img src="https://images.unsplash.com/photo-1534308983496-4fabb1a015ee" alt="Pizza dough preparation">
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Shape the Pizza</h3>
+                        <p>On a floured surface, stretch the dough into a 12-inch circle. Transfer it to a pizza peel or parchment paper dusted with flour or cornmeal.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Add Toppings</h3>
+                        <p>Spread the tomato sauce evenly over the dough, leaving a 1-inch border. Tear the mozzarella into small pieces and distribute it over the sauce. Drizzle with olive oil and sprinkle with a pinch of sea salt.</p>
+                        <div class="step-image">
+                            <img src="https://images.unsplash.com/photo-1593560708920-61dd98c60f4e" alt="Adding toppings to pizza">
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Bake the Pizza</h3>
+                        <p>Slide the pizza onto the preheated stone and bake for 10-12 minutes, or until the crust is golden and the cheese is bubbly and slightly browned.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Finish and Serve</h3>
+                        <p>Remove from the oven, top with fresh basil leaves, and drizzle with a little more olive oil. Slice and serve immediately.</p>
+                        <div class="step-image">
+                            <img src="https://images.unsplash.com/photo-1513106580091-1d82408b8cd6" alt="Finished Margherita pizza">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary"><i class="fas fa-print"></i> Print Recipe</button>
+                <button class="btn btn-secondary"><i class="fas fa-bookmark"></i> Save Recipe</button>
+                <button class="btn btn-outline"><i class="fas fa-share-alt"></i> Share</button>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <section class="nutrition">
+                <h2>Nutrition Facts</h2>
+                <p>Per serving (1/2 pizza)</p>
+                <table class="nutrition-table">
+                    <tr>
+                        <th>Calories</th>
+                        <td>450kcal</td>
+                    </tr>
+                    <tr>
+                        <th>Total Fat</th>
+                        <td>18g</td>
+                    </tr>
+                    <tr>
+                        <th>Saturated Fat</th>
+                        <td>8g</td>
+                    </tr>
+                    <tr>
+                        <th>Carbohydrates</th>
+                        <td>55g</td>
+                    </tr>
+                    <tr>
+                        <th>Sugar</th>
+                        <td>3g</td>
+                    </tr>
+                    <tr>
+                        <th>Protein</th>
+                        <td>15g</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section class="tips">
+                <h2>Chef's Tips</h2>
+                <ul class="tips-list">
+                    <li class="tip">
+                        <span class="tip-icon"><i class="fas fa-leaf"></i></span>
+                        <span>Use fresh, high-quality ingredients for authentic flavor.</span>
+                    </li>
+                    <li class="tip">
+                        <span class="tip-icon"><i class="fas fa-fire"></i></span>
+                        <span>A pizza stone or steel ensures a crispy crust.</span>
+                    </li>
+                    <li class="tip">
+                        <span class="tip-icon"><i class="fas fa-clock"></i></span>
+                        <span>Don’t overload toppings to maintain the classic Margherita balance.</span>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+    </div>
+
+    <!-- Similar Recipes -->
+    <section class="similar-recipes">
+        <h2>More Italian Favorites</h2>
+        <div class="similar-grid">
+            <div class="recipe-card">
+                <div class="recipe-img" style="background-image: url('https://images.unsplash.com/photo-1473093295043-cdd812d0e601');"></div>
+                <div class="recipe-content">
+                    <h3>Spaghetti Carbonara</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 20 mins</span>
+                        <span><i class="fas fa-star"></i> 4.9</span>
+                    </div>
+                </div>
+            </div>
+            <div class="recipe-card">
+                <div class="recipe-img" style="background-image: url('https://images.unsplash.com/photo-1598866594230-a760a6472119');"></div>
+                <div class="recipe-content">
+                    <h3>Tiramisu</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 45 mins</span>
+                        <span><i class="fas fa-star"></i> 4.8</span>
+                    </div>
+                </div>
+            </div>
+            <div class="recipe-card">
+                <div class="recipe-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');"></div>
+                <div class="recipe-content">
+                    <h3>Pesto Pasta</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 25 mins</span>
+                        <span><i class="fas fa-star"></i> 4.7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Print button functionality
+        document.querySelector('.btn-primary').addEventListener('click', () => {
+            window.print();
+        });
+
+        // Save button functionality
+        const saveBtn = document.querySelector('.btn-secondary');
+        saveBtn.addEventListener('click', () => {
+            saveBtn.innerHTML = '<i class="fas fa-check"></i> Saved';
+            setTimeout(() => {
+                saveBtn.innerHTML = '<i class="fas fa-bookmark"></i> Save Recipe';
+            }, 2000);
+        });
+
+        // Share button functionality
+        document.querySelector('.btn-outline').addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Authentic Margherita Pizza Recipe',
+                    text: 'Check out this classic Margherita Pizza recipe!',
+                    url: window.location.href
+                }).catch(err => console.log('Error sharing:', err));
+            } else {
+                alert('Web Share API not supported in your browser');
+            }
+        });
+    </script>
+</body>
+</html>
