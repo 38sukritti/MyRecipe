@@ -223,7 +223,7 @@ hr {
                 <a href="{%url 'app2:home'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Home</a>
                 <a href="{%url 'app2:recipes'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Recipes</a>
                 <a href="pizza.html" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Categories</a>
-                <a href="pizza.html" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">About</a>
+                <a href="{%url 'app2:about'%}" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">About</a>
                 <a href="pizza.html" style="color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition-normal); padding: var(--space-sm); border-radius: var(--radius-md);">Contact</a>
                 {% if user.is_authenticated %}
                 <span style="margin-top: 15px;">Welcome, {{ user.username }}!</span>
